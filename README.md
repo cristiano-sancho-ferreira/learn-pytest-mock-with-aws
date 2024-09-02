@@ -1,9 +1,9 @@
 
 ## Criar ambiente
-python -m venv env
+python -m venv env_test
 
-## inicia ambiente
-.env/Scripts/activate
+## iniciar ambiente (win32)
+env\Scripts\activate
 
 ## Instala libs
 pip install -r app/requirements.txt
