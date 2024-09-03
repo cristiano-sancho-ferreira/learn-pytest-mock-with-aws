@@ -1,0 +1,34 @@
+[
+  {
+    "Dataset": "cadastro",
+    "SourceTable": "tbxp0004",
+    "Acronym": "XP",
+    "EntityType": "link",
+    "EntityName": "l_tb_cep",
+    "BusinessKey": [
+      "cod_fx_cep_fim",
+      "cod_fx_cep_ini",
+      "cod_mun"
+    ],
+    "CDCColumns": [],
+    "RenameColumns": [],
+    "Links": [
+      {
+        "Name": "l_cep_mun",
+        "HubName": "h_cep",
+        "RoleName": "hk_cep_ini",
+        "BusinessKey": [
+          "cod_fx_cep_fim",
+          "cod_fx_cep_ini"
+        ]
+      },
+      {
+        "Name": "l_cep_mun",
+        "HubName": "h_mun",
+        "BusinessKey": [
+          "cod_mun"
+        ]
+      }
+    ]
+  }
+]

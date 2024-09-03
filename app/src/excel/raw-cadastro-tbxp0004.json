@@ -1,0 +1,41 @@
+[
+   {
+      "Dataset": "cadastro",
+      "SourceTable": "tbxp0004",
+      "Acronym": "XP",
+      "EntityType": "text",
+      "Filename": "TBXP0004",
+      "ExtractionType": "full",
+      "SkipHeaderRows": "1",
+      "Delimiter": "|",
+      "Frequency": "daily",
+      "Description": "Representa a faixa de cep que é um código desenvolvido pelas administrações postais e criado com o intuito de facilitar o encaminhamento e a entrega das correspondências.  a estrutura do cep brasileiro possui uma orientação geográfica, hierarquizada basea",
+      "ForceEngineGlue": "false",
+      "Columns": [
+         {
+            "Id": "1",
+            "Name": "cod_fx_cep_fim",
+            "Datatype": "bigint",
+            "Description": "Código de faixa de cep final.",
+            "PrimaryKey": 1,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "2",
+            "Name": "cod_fx_cep_ini",
+            "Datatype": "bigint",
+            "Description": "Código de faixa de cep inicial.",
+            "PrimaryKey": 1,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "3",
+            "Name": "cod_mun",
+            "Datatype": "bigint",
+            "Description": "Código que representa município.",
+            "PrimaryKey": 1,
+            "Pattern": "([0-9]+)"
+         }
+      ]
+   }
+]

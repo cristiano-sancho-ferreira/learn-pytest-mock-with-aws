@@ -20,10 +20,10 @@ Siga os tutoriais, explore os exemplos e comece a testar suas aplicações AWS c
 
 ## Conteudo util e comandos
 ### Criar ambiente
-python -m venv env_test
+python -m venv env_pytest
 
 ### iniciar ambiente (win32)
-env\Scripts\activate
+env_pytest\Scripts\activate
 
 ### Instala libs
 pip install -r app/requirements.txt

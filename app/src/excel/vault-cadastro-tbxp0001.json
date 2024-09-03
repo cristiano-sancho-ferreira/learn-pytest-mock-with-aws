@@ -1,0 +1,34 @@
+[
+  {
+    "Dataset": "cadastro",
+    "SourceTable": "tbxp0001",
+    "Acronym": "XP",
+    "EntityType": "satellite",
+    "EntityName": "s_tb_mun",
+    "HubName": "h_tb_mun",
+    "BusinessKey": [
+      "cod_mun"
+    ],
+    "CDCColumns": [
+      "cod_sgl_uf",
+      "nom_mun"
+    ],
+    "RenameColumns": [],
+    "Links": [
+      {
+        "Name": "l_mun_uf",
+        "HubName": "h_mun",
+        "BusinessKey": [
+          "cod_mun"
+        ]
+      },
+      {
+        "Name": "l_mun_uf",
+        "HubName": "h_uf",
+        "BusinessKey": [
+          "cod_sgl_uf"
+        ]
+      }
+    ]
+  }
+]

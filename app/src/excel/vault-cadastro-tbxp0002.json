@@ -1,0 +1,209 @@
+[
+  {
+    "Dataset": "cadastro",
+    "SourceTable": "tbxp0002",
+    "Acronym": "XP",
+    "EntityType": "satellite",
+    "EntityName": "s_tb_pdv",
+    "HubName": "h_tb_pdv",
+    "BusinessKey": [
+      "num_pdv"
+    ],
+    "CDCColumns": [],
+    "RenameColumns": [
+      {
+        "nom_rzoa_scla_estb": "nom_rzao_scla_estb",
+        "dat_lib_rav_fil": "dat_lib_rsmo_antc_vds_fil",
+        "cod_tip_estb_pdv": "cod_stru_cmc",
+        "cod_vsbl_pdv": "cod_tip_vsbl",
+        "cod_hrro_fncn_pdv": "cod_hrro_fncn",
+        "cod_cls_rav_fil": "cod_risc_rav",
+        "cod_cmrc_pdv": "cod_tip_cmrc",
+        "cod_can_pdv": "cod_sit_pdv",
+        "num_tel_pdv": "num_tel",
+        "cod_crdn_pdv": "cod_tip_crdn",
+        "cod_ctgr_mrkt": "cod_sgmn_mrkt",
+        "cod_cpl_ctgr": "cod_mot_can",
+        "dat_cpl_ctgr": "dat_mot_can",
+        "cod_can_atnd": "ind_can_atnd",
+        "cod_indc_blqo_odc": "ind_blqo_ordm_cre",
+        "dat_out_pdv": "dat_vsta_pdv",
+        "r1_num_pdv": "num_cntz_pdv",
+        "r2_num_pdv": "num_mtz_pdv",
+        "dth_ult_atlz": "dth_atlz",
+        "cod_opid_ult_atlz": "cod_opid_atlz",
+        "cod_tip_ope_vcr": "ind_ope_prod_voch",
+        "nom_eml_pdv": "nom_emal_pdv",
+        "dth_rfl_pdv": "dth_rflc_pdv",
+        "num_ddd_pdv_2": "num_ddd_pdv_adic",
+        "num_tel_pdv_2": "num_tel_pdv_adic",
+        "num_rml_pdv_2": "num_rml_pdv_adic",
+        "nom_eml_pdv_2": "nom_site_pdv",
+        "cod_indc_ace_intn": "ind_intn",
+        "cod_indc_rgoa_loja": "cod_tip_endr_cmc",
+        "r3_num_pdv": "num_pdv_cngd",
+        "dat_cnfr_dad_pdv": "dat_cnfr_das_pdv",
+        "indc_dvlc_crrs_pdv": "ind_dvlc_crrs_pdv",
+        "cod_tx_can": "ind_pgmn_tx_can",
+        "num_slc_flco_he": "num_seq_slc_atnd",
+        "num_gru_ger": "num_gru_grnl",
+        "val_pt_fim": "val_sco_pdv",
+        "vlr_tx_adso": "val_tx_adso",
+        "ind_ocor_ram_atvd_rd": "ind_ocor_ram_atvd_rd",
+        "ind_act_rav_pos": "ind_act_rav_pos",
+        "ind_pdv_mob": "cod_mob_pdv",
+        "ind_prta_inst": "ind_prta_inst",
+        "ind_envo_extt_emal": "ind_envo_extt_emal",
+        "num_ddd_cv": "num_ddd_cmpv_vd",
+        "num_tel_cv": "num_tel_cmpv_vd",
+        "num_rml_cv": "num_rml_cmpv_vd",
+        "ind_perm_dgtc": "ind_perm_dgtc",
+        "ind_pdv_dtch": "ind_pdv_ecmm"
+      }
+    ],
+    "Links": [
+      {
+        "Name": "l_pdv_sgmn_mrkt",
+        "HubName": "h_pdv",
+        "BusinessKey": [
+          "num_pdv"
+        ]
+      },
+      {
+        "Name": "l_pdv_gru_ram",
+        "HubName": "h_pdv",
+        "BusinessKey": [
+          "num_pdv"
+        ]
+      },
+      {
+        "Name": "l_pdv_ram_atvd",
+        "HubName": "h_pdv",
+        "BusinessKey": [
+          "num_pdv"
+        ]
+      },
+      {
+        "Name": "l_pdv_cel",
+        "HubName": "h_pdv",
+        "BusinessKey": [
+          "num_pdv"
+        ]
+      },
+      {
+        "Name": "l_pdv_cnl",
+        "HubName": "h_pdv",
+        "BusinessKey": [
+          "num_pdv"
+        ]
+      },
+      {
+        "Name": "l_pdv_ctgr",
+        "HubName": "h_pdv",
+        "BusinessKey": [
+          "num_pdv"
+        ]
+      },
+      {
+        "Name": "l_pdv_gru",
+        "HubName": "h_pdv",
+        "BusinessKey": [
+          "num_pdv"
+        ]
+      },
+      {
+        "Name": "l_pdv_estb",
+        "HubName": "h_pdv",
+        "BusinessKey": [
+          "num_pdv"
+        ]
+      },
+      {
+        "Name": "l_pdv_tip_stru_cmc_pdv",
+        "HubName": "h_pdv",
+        "BusinessKey": [
+          "num_pdv"
+        ]
+      },
+      {
+        "Name": "l_pdv_estb",
+        "HubName": "h_estb",
+        "BusinessKey": [
+          "num_cad_grl_ctri_estb"
+        ]
+      },
+      {
+        "Name": "l_estb_tip_stru_cmc_pdv",
+        "HubName": "h_estb",
+        "BusinessKey": [
+          "num_cad_grl_ctri_estb"
+        ]
+      },
+      {
+        "Name": "l_pdv_tip_stru_cmc_pdv",
+        "HubName": "h_tip_stru_cmc_pdv",
+        "BusinessKey": [
+          "cod_stru_cmc"
+        ]
+      },
+      {
+        "Name": "l_estb_tip_stru_cmc_pdv",
+        "HubName": "h_tip_stru_cmc_pdv",
+        "BusinessKey": [
+          "cod_stru_cmc"
+        ]
+      },
+      {
+        "Name": "l_pdv_sgmn_mrkt",
+        "HubName": "h_sgmn_mrkt_pdv",
+        "BusinessKey": [
+          "cod_sgmn_mrkt"
+        ]
+      },
+      {
+        "Name": "l_pdv_gru_ram",
+        "HubName": "h_gru_ram",
+        "BusinessKey": [
+          "cod_gru_ram"
+        ]
+      },
+      {
+        "Name": "l_pdv_ram_atvd",
+        "HubName": "h_ram_atvd",
+        "BusinessKey": [
+          "cod_gru_ram",
+          "cod_ram_atvd"
+        ]
+      },
+      {
+        "Name": "l_pdv_ctgr",
+        "HubName": "h_ctgr",
+        "BusinessKey": [
+          "cod_ctgr"
+        ]
+      },
+      {
+        "Name": "l_pdv_cnl",
+        "HubName": "h_cnl",
+        "BusinessKey": [
+          "cod_cnl"
+        ]
+      },
+      {
+        "Name": "l_pdv_cel",
+        "HubName": "h_cel",
+        "BusinessKey": [
+          "cod_cel",
+          "cod_id_cel"
+        ]
+      },
+      {
+        "Name": "l_pdv_gru",
+        "HubName": "h_gru",
+        "BusinessKey": [
+          "num_gru"
+        ]
+      }
+    ]
+  }
+]

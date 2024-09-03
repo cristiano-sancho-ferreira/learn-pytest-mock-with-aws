@@ -1,3 +1,17 @@
+'''
+cd C:\Dados\2.Script\Mapeamento\
+python C:\Dados\2.Script\Mapeamento\generator_json_v33.py C:\Dados\2.Script\Mapeamento\Mapeamento_wave1
+
+Instalar Anaconda
+pip install xlrd==1.2.0 = Para instalar essa biblioteca tem que configura o pip config
+execute "pip config list -v" para encontrar o pip.config na maquina
+
+ai vc joga esse arquivo no global
+que ai o anaconda com jupyter assume tbm
+ai tu ja pode tentar rodar o pip
+
+'''
+#import boto3
 import pandas as pd
 import json
 import logging

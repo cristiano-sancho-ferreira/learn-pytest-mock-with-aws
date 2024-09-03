@@ -1,0 +1,905 @@
+[
+   {
+      "Dataset": "cadastro",
+      "SourceTable": "tbxp0002",
+      "Acronym": "XP",
+      "EntityType": "text",
+      "Filename": "TBXP0002",
+      "ExtractionType": "incremental",
+      "SkipHeaderRows": "1",
+      "Delimiter": "¦",
+      "Frequency": "daily",
+      "Description": "Meio por onde é realizado o contato com o cliente, seja no momento de credenciamento, venda, atendimento, envio de correspondencia, etc... são exemplos de canal : bancos, telemarketing e portal.",
+      "ForceEngineGlue": "false",
+      "Columns": [
+         {
+            "Id": "1",
+            "Name": "num_pdv",
+            "Datatype": "bigint",
+            "Description": "Número do ponto de venda",
+            "PrimaryKey": 1,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "2",
+            "Name": "num_cad_grl_ctri_estb",
+            "Datatype": "bigint",
+            "Description": "Número do cnpj do estabelecimento ..domínio: zeros ou cnpj válido",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "3",
+            "Name": "nom_rzoa_scla_estb",
+            "Datatype": "varchar(60)",
+            "Description": "Nome da razão social do estabelecimento.",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "4",
+            "Name": "dat_cdst_pdv",
+            "Datatype": "datetime",
+            "Description": "Data do cadastramento do ponto de venda.",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "5",
+            "Name": "dat_assn_prop",
+            "Datatype": "datetime",
+            "Description": "Data da assinatura da proposta - ssaammdd",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "6",
+            "Name": "dat_lib_rav_fil",
+            "Datatype": "datetime",
+            "Description": "Trata-se da data de liberação do resumo antecipado de vendas (rav)",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "7",
+            "Name": "cod_cpf_vdd_pdv",
+            "Datatype": "bigint",
+            "Description": "Efetivou a filiação ..domínio: zeros ou cpf válido",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "8",
+            "Name": "cod_tip_estb_pdv",
+            "Datatype": "bigint",
+            "Description": "Código da classificação do enderenço dos pontos de venda que são atendidos pela área comercial",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "9",
+            "Name": "cod_vsbl_pdv",
+            "Datatype": "bigint",
+            "Description": "Grau de visibilidade do estabelecimento no mercado (parâmetro mercadológico), de acordo potencial econômico.",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "10",
+            "Name": "cod_hrro_fncn_pdv",
+            "Datatype": "bigint",
+            "Description": "Código do horário de funcionamento do estabelecimento. ..domínio: . - comercial.1 - noturno",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "11",
+            "Name": "cod_cls_rav_fil",
+            "Datatype": "bigint",
+            "Description": "Codigo classificaçao rav filial",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "12",
+            "Name": "cod_cmrc_pdv",
+            "Datatype": "bigint",
+            "Description": "Código comercialização ponto de venda",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "13",
+            "Name": "cod_vip_pdv",
+            "Datatype": "bigint",
+            "Description": "Código vip ponto de venda",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "14",
+            "Name": "cod_ctgr_mrcg",
+            "Datatype": "varchar(1)",
+            "Description": "Código categoria mercadológica",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "15",
+            "Name": "cod_ctgr_fin",
+            "Datatype": "varchar(1)",
+            "Description": "Código categoria financeiro",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "16",
+            "Name": "cod_can_pdv",
+            "Datatype": "varchar(1)",
+            "Description": "Código cancelamento  ponto de venda",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "17",
+            "Name": "dat_can_pdv",
+            "Datatype": "datetime",
+            "Description": "Data de cancelamento do ponto de venda",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "18",
+            "Name": "dat_rtvc_pdv",
+            "Datatype": "datetime",
+            "Description": "Data em que foi recadastrado o ponto de venda no sistema.",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "19",
+            "Name": "nom_pes_ctto_pdv",
+            "Datatype": "varchar(30)",
+            "Description": "Nome da pessoa de contato do telefone",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "20",
+            "Name": "num_ddd_pdv",
+            "Datatype": "varchar(4)",
+            "Description": "Número do ddd do telefone",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "21",
+            "Name": "num_tel_pdv",
+            "Datatype": "bigint",
+            "Description": "Número de telefone.",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "22",
+            "Name": "num_rml_pdv",
+            "Datatype": "bigint",
+            "Description": "É o número do ramal do telefone do ponto de venda (pv)",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "23",
+            "Name": "nom_plqt_1_pdv",
+            "Datatype": "varchar(11)",
+            "Description": "Nome plaqueta 1  ponto de venda (pv)",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "24",
+            "Name": "nom_plqt_2_pdv",
+            "Datatype": "varchar(11)",
+            "Description": "Nome plaqueta 2  ponto de venda (pv)",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "25",
+            "Name": "nom_fat_pdv",
+            "Datatype": "varchar(23)",
+            "Description": "Nome do ponto de venda que aparecerá na fatura",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "26",
+            "Name": "cod_crdn_pdv",
+            "Datatype": "bigint",
+            "Description": "Código credenciamento ponto de venda (pv)",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "27",
+            "Name": "cod_ctgr_mrkt",
+            "Datatype": "varchar(1)",
+            "Description": "Código da  categoria de marketing.",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "28",
+            "Name": "cod_cpl_ctgr",
+            "Datatype": "bigint",
+            "Description": "Código complemento categoria",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "29",
+            "Name": "dat_cpl_ctgr",
+            "Datatype": "datetime",
+            "Description": "Data complemento categoria",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "30",
+            "Name": "cod_can_atnd",
+            "Datatype": "bigint",
+            "Description": "Código cancelamento atendimento",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "31",
+            "Name": "cod_ctgr_ant_pdv",
+            "Datatype": "varchar(50)",
+            "Description": "Código da categoria anterior ponto de venda (pv)",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "32",
+            "Name": "dat_ctgr_atu_pdv",
+            "Datatype": "datetime",
+            "Description": "Data da categoria atual do ponto de venda",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "33",
+            "Name": "cod_indc_blqo_odc",
+            "Datatype": "varchar(1)",
+            "Description": "",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "34",
+            "Name": "dat_prx_vsta_pdv",
+            "Datatype": "datetime",
+            "Description": "Data da próxima visita ao ponto de venda",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "35",
+            "Name": "dat_out_pdv",
+            "Datatype": "datetime",
+            "Description": "",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "36",
+            "Name": "cod_gru_ram",
+            "Datatype": "bigint",
+            "Description": "Código do grupo de ramo de atividade do ponto de venda (pv).",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "37",
+            "Name": "cod_ram_atvd",
+            "Datatype": "bigint",
+            "Description": "Código do ramo de atividade do ponto de venda.",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "38",
+            "Name": "cod_ctgr",
+            "Datatype": "varchar(1)",
+            "Description": "Código que classifica conceitualmente um estabelacimento no mercado. (pv)...domínio:. c - colunável. v- varejinho. g - gigante em evidência. e - gigante escondido",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "39",
+            "Name": "cod_cnl",
+            "Datatype": "bigint",
+            "Description": "Código de identificação do canal de filiação de estabelecimento. ..domínio: 1 a 99 (atualmente existem de 1 a 13)",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "40",
+            "Name": "cod_cel",
+            "Datatype": "bigint",
+            "Description": "Código célula dos sub-canais de um respectivo canal.",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "41",
+            "Name": "cod_id_cel",
+            "Datatype": "varchar(1)",
+            "Description": "Código identificação célula",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "42",
+            "Name": "num_gru",
+            "Datatype": "bigint",
+            "Description": "Número do grupo comercial do ponto de venda .",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "43",
+            "Name": "r1_num_pdv",
+            "Datatype": "bigint",
+            "Description": "",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "44",
+            "Name": "r2_num_pdv",
+            "Datatype": "bigint",
+            "Description": "",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "45",
+            "Name": "cod_antc_rav",
+            "Datatype": "bigint",
+            "Description": "Codigo de antecipação do rav ..domínio: . - não antecipa.1 - antecipação padrão .2 - antecipação especial",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "46",
+            "Name": "dat_fim_crnc",
+            "Datatype": "datetime",
+            "Description": "Data fim carência",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "47",
+            "Name": "cod_opid_lib_rav",
+            "Datatype": "varchar(8)",
+            "Description": "Indica o operador que autorizou a antecipação do rav.",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "48",
+            "Name": "dth_lib_rav",
+            "Datatype": "datetime",
+            "Description": "Data da liberação do rav",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "49",
+            "Name": "dth_ult_atlz",
+            "Datatype": "datetime",
+            "Description": "Data e hora da última atualização do registro.",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "50",
+            "Name": "cod_opid_ult_atlz",
+            "Datatype": "varchar(8)",
+            "Description": "Código do usuário da rede (opid da novell) que efetuou a última atualização da linha da tabela.",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "51",
+            "Name": "dat_emi_fch_vsta",
+            "Datatype": "datetime",
+            "Description": "Data  emissão ficha visita",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "52",
+            "Name": "cod_evn_rav",
+            "Datatype": "bigint",
+            "Description": "Código do evento do resumo antecipado de vendas (rav).",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "53",
+            "Name": "cod_tip_ope_vcr",
+            "Datatype": "varchar(1)",
+            "Description": "",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "54",
+            "Name": "cod_net",
+            "Datatype": "varchar(1)",
+            "Description": "Código que indica se o estabelecimento faz net automático. o net é o resultado da diferença entre os recebiveis do ponto de venda e os débitos de cobrança, que o mesmo deverá pagar, ou seja, é o valor resultante dos recebiveis - (menos) débitos de cobranç",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "55",
+            "Name": "dth_cdst_net",
+            "Datatype": "datetime",
+            "Description": "Data e hora de cadastramento do pv no net.",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "56",
+            "Name": "dth_can_net",
+            "Datatype": "datetime",
+            "Description": "Data e hora de cancelamento do pv no net.",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "57",
+            "Name": "num_ddd_fax_pdv",
+            "Datatype": "varchar(4)",
+            "Description": "Número do ddd do fax do ponto de venda.",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "58",
+            "Name": "num_fax_pdv",
+            "Datatype": "bigint",
+            "Description": "Número do fax do ponto de venda (pv).",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "59",
+            "Name": "nom_eml_pdv",
+            "Datatype": "varchar(50)",
+            "Description": "Nome do endereco de email do ponto de venda (pv).",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "60",
+            "Name": "cod_indc_rcdt",
+            "Datatype": "varchar(2)",
+            "Description": "Código que indica recadastramento",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "61",
+            "Name": "dat_rcdt_pdv",
+            "Datatype": "datetime",
+            "Description": "Data que indica recadastramento",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "62",
+            "Name": "dat_lib_pgmn_rcdt",
+            "Datatype": "datetime",
+            "Description": "Data de liberação do pagamento para eps referente ao recadastramento. esta data é preenchida apos o pv a ser recadastrado passar pelas consisitencias visuais e fisicas.",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "63",
+            "Name": "cod_sub_ctgr_mrkt",
+            "Datatype": "bigint",
+            "Description": "Código da sub categoria de marketing.",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "64",
+            "Name": "cod_age_cnl_flco",
+            "Datatype": "bigint",
+            "Description": "Código da agência do canal de filiação...domínio: ..deverá estar cadastrado na tabela de bancos do canal=1, célula =banco.",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "65",
+            "Name": "cod_cnl_ant",
+            "Datatype": "bigint",
+            "Description": "Código de identificação do canal de filiação de estabelecimento. ..domínio: 1 a 99 (atualmente existem de 1 a 13)",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "66",
+            "Name": "cod_cel_ant",
+            "Datatype": "bigint",
+            "Description": "Código célula dos sub-canais de um respectivo canal.",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "67",
+            "Name": "cod_age_cnl_ant",
+            "Datatype": "bigint",
+            "Description": "Código agencia canal anterior",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "68",
+            "Name": "dth_rfl_pdv",
+            "Datatype": "datetime",
+            "Description": "Data hora refiliação ponto de venda.",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "69",
+            "Name": "pct_dsct_flco",
+            "Datatype": "decimal(12,2)",
+            "Description": "Percentual de desconto de filiação...domínio: 0 a 100",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "70",
+            "Name": "pct_dsct_ocor",
+            "Datatype": "decimal(12,2)",
+            "Description": "Percentual de desconto nas ocorrências para cada ponto de venda.",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "71",
+            "Name": "num_ddd_pdv_2",
+            "Datatype": "varchar(4)",
+            "Description": "Número do ddd do telefone",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "72",
+            "Name": "num_tel_pdv_2",
+            "Datatype": "bigint",
+            "Description": "Numero telefone ponto de venda (pv).1",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "73",
+            "Name": "num_rml_pdv_2",
+            "Datatype": "bigint",
+            "Description": "Numero ramal ponto de venda (pv).1",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "74",
+            "Name": "nom_eml_pdv_2",
+            "Datatype": "varchar(50)",
+            "Description": "Nome do endereco de email do ponto de venda (pv).",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "75",
+            "Name": "cod_indc_ace_intn",
+            "Datatype": "varchar(1)",
+            "Description": "Indica se o ponto de venda tem acesso a internet ..domínio: ..´s´=sim (tem acesso) .´n´=não (não tem acesso) .´ ´=não informado",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "76",
+            "Name": "cod_indc_rgoa_loja",
+            "Datatype": "varchar(1)",
+            "Description": "",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "77",
+            "Name": "cod_tip_cng_pdv",
+            "Datatype": "bigint",
+            "Description": "",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "78",
+            "Name": "r3_num_pdv",
+            "Datatype": "bigint",
+            "Description": "",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "79",
+            "Name": "dat_cnfr_dad_pdv",
+            "Datatype": "datetime",
+            "Description": "Data da confirmação dos dados do estabelecimentos feito pela central de atendimento.",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "80",
+            "Name": "indc_dvlc_crrs_pdv",
+            "Datatype": "varchar(1)",
+            "Description": "É o indicador de devolucao de correspondencias/maquinetas.",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "81",
+            "Name": "cod_tx_can",
+            "Datatype": "varchar(1)",
+            "Description": "Codigo taxa cancelamento",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "82",
+            "Name": "dth_cdst_tx_can",
+            "Datatype": "datetime",
+            "Description": "Data e hora de cadastramento para não cobrar taxa administrativa de cancelamento.",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "83",
+            "Name": "dth_can_tx_can",
+            "Datatype": "datetime",
+            "Description": "Data de cancelamento para não cobrar taxa administrativa de cancelamento.",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "84",
+            "Name": "num_slc_flco_he",
+            "Datatype": "bigint",
+            "Description": "",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "85",
+            "Name": "num_gru_ger",
+            "Datatype": "bigint",
+            "Description": "Número do grupo gerencial (relacionado com tabela de grupos).",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "86",
+            "Name": "cod_opid_cdst_pdv",
+            "Datatype": "varchar(8)",
+            "Description": "",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "87",
+            "Name": "cod_cpl_ctgr_ant",
+            "Datatype": "bigint",
+            "Description": "",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "88",
+            "Name": "val_pt_fim",
+            "Datatype": "bigint",
+            "Description": "",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "89",
+            "Name": "vlr_tx_adso",
+            "Datatype": "decimal(12,2)",
+            "Description": "Valor da taxa padrao de adesao no momento da filiação ou reativação de um pv, originado da tabela tbge0101.",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "90",
+            "Name": "ind_ocor_ram_atvd_rd",
+            "Datatype": "varchar(1)",
+            "Description": "Indicador de ocorrencia de ramos de atividade da rede. para uma rede de ponto de venda (mesmo radical de cnpj), este atributo no ponto de venda da matriz indica se as filiais podem ou não ter ramos de atividade diferentes do ramo de atividade da matriz. .",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "91",
+            "Name": "ind_act_rav_pos",
+            "Datatype": "varchar(1)",
+            "Description": "Indicador aceita resumo antecipado vendas pos...domínio:..´s´ - sim .´n´ - não",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "92",
+            "Name": "cod_dstr",
+            "Datatype": "bigint",
+            "Description": "O sistema passará a identificar o(s) pv(s) que irão operar no modelo de negócio ´distribution´, através da indicação do código do distribuidor o qual o estabelecimento pertence.",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "93",
+            "Name": "ind_pdv_mob",
+            "Datatype": "varchar(1)",
+            "Description": "Indicador ponto de venda mobile.domínio: .s - sim ( o ponto de venda é mobile).n - não ( o ponto de venda não é mobile)",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "94",
+            "Name": "ind_prta_inst",
+            "Datatype": "varchar(1)",
+            "Description": "Indicador porta instalado",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "95",
+            "Name": "ind_envo_extt_emal",
+            "Datatype": "varchar(1)",
+            "Description": "Indica se o estabelecimento receberá extrato via email ou via papel...domínio:.s - envia extrato via email.n - não envia extrato via email",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "96",
+            "Name": "num_ddd_cv",
+            "Datatype": "varchar(4)",
+            "Description": "Número do ddd do comprovante de venda",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "97",
+            "Name": "num_tel_cv",
+            "Datatype": "bigint",
+            "Description": "Número do telefone do comprovante de venda",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "98",
+            "Name": "num_rml_cv",
+            "Datatype": "bigint",
+            "Description": "Número do ramal do comprovante de venda",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "99",
+            "Name": "cod_cli_espc",
+            "Datatype": "bigint",
+            "Description": "Representa o cliente único para a redecard. valor apurado durante o processo de carga do dw.",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "100",
+            "Name": "ind_perm_dgtc",
+            "Datatype": "varchar(1)",
+            "Description": "Indicador para permitir transacionar sem a presença do cartão.",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "101",
+            "Name": "cod_cnae",
+            "Datatype": "varchar(7)",
+            "Description": "Código nacional de atividade econômica (cnae). (não possui tabela de codificação)",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "102",
+            "Name": "cod_antc_fatr_exps",
+            "Datatype": "bigint",
+            "Description": "Código de antecipação do fator expresso (produto flex).",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "103",
+            "Name": "dat_fim_crnc_fatr_exps",
+            "Datatype": "datetime",
+            "Description": "Data fim de carência do fator expresso (produto flex).",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "104",
+            "Name": "dth_lib_fatr_exps",
+            "Datatype": "datetime",
+            "Description": "Data e hora de liberação do fator expresso (produto flex).",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "105",
+            "Name": "cod_opid_lib_fatr_exps",
+            "Datatype": "varchar(8)",
+            "Description": "É o código do operador que liberou do fator expresso (produto flex) da carência.",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "106",
+            "Name": "cod_clas_prod_fatr_exps",
+            "Datatype": "bigint",
+            "Description": "Código da classificação de risco do fator expresso (produto flex) na filiação do ponto de venda.",
+            "PrimaryKey": 0,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "107",
+            "Name": "dat_lib_prod_fatr_exps",
+            "Datatype": "datetime",
+            "Description": "Data de liberação do fator expresso (produto flex) na filiação do ponto de venda.",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "108",
+            "Name": "ind_pdv_dtch",
+            "Datatype": "varchar(1)",
+            "Description": "Indica que o pv é um pv datacash..domínio: s-sim, n-não",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "109",
+            "Name": "dth_atvc_ecmm",
+            "Datatype": "datetime",
+            "Description": "Data e hora de ativação do ecommerce em produção. será atualizado pela sigla ec quando a datacash enviar o usuário e a senha de produção do pv.",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "110",
+            "Name": "ind_flex_full",
+            "Datatype": "varchar(1)",
+            "Description": "Indica se a condição comercial flex se aplica a todos os terminais do ponto de venda (full)..s_sim.n-não",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "111",
+            "Name": "ind_vd_dgtd_flex",
+            "Datatype": "varchar(1)",
+            "Description": "Indica se para a condição comercial flex, é permtitido a venda digitada (sem leitura do cartão).s-sim.n-nâo",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         }
+      ]
+   }
+]

@@ -1,0 +1,41 @@
+[
+   {
+      "Dataset": "cadastro",
+      "SourceTable": "tbxp0001",
+      "Acronym": "XP",
+      "EntityType": "text",
+      "Filename": "TBXP0001",
+      "ExtractionType": "full",
+      "SkipHeaderRows": "1",
+      "Delimiter": "|",
+      "Frequency": "daily",
+      "Description": "Representa o município nacionais.",
+      "ForceEngineGlue": "false",
+      "Columns": [
+         {
+            "Id": "1",
+            "Name": "cod_mun",
+            "Datatype": "bigint",
+            "Description": "Código que representa município.",
+            "PrimaryKey": 1,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "2",
+            "Name": "cod_sgl_uf",
+            "Datatype": "varchar(2)",
+            "Description": "Código da silga da unidade federativa (uf)",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "3",
+            "Name": "nom_mun",
+            "Datatype": "varchar(40)",
+            "Description": "Representa o nome do município.",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         }
+      ]
+   }
+]

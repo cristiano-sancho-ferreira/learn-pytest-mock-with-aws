@@ -1,0 +1,121 @@
+[
+   {
+      "Dataset": "cadastro",
+      "SourceTable": "tbxp0003",
+      "Acronym": "XP",
+      "EntityType": "text",
+      "Filename": "TBXP0003",
+      "ExtractionType": "full",
+      "SkipHeaderRows": "1",
+      "Delimiter": "|",
+      "Frequency": "daily",
+      "Description": "Meio por onde é realizado o contato com o cliente, seja no momento de credenciamento, venda, atendimento, envio de correspondencia, etc... são exemplos de canal : bancos, telemarketing e portal.",
+      "ForceEngineGlue": "false",
+      "Columns": [
+         {
+            "Id": "1",
+            "Name": "cod_cnl",
+            "Datatype": "bigint",
+            "Description": "Código de identificação do canal de filiação de estabelecimento. ..domínio: 1 a 99 (atualmente existem de 1 a 13)",
+            "PrimaryKey": 1,
+            "Pattern": "([0-9]+)"
+         },
+         {
+            "Id": "2",
+            "Name": "des_cnl",
+            "Datatype": "varchar(30)",
+            "Description": "Descrição do canal de filiação do estabelecimento ..domínio: ..1 - banco .2 - filial .3 - accs .4 - eps .5 - tlmkt .6 - imediata.7 - redeshop bco .8 -redeshop filial .9 - redeshop accs .10- redeshop eps",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "3",
+            "Name": "cod_id_cel",
+            "Datatype": "varchar(1)",
+            "Description": "Identificador do tipo da célula a que está associado o canal...domínio:.b -banco.e - eps.a - acc.i - filiação imediata .t - telemarketing.f - filial",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "4",
+            "Name": "cod_sit_cnl",
+            "Datatype": "varchar(1)",
+            "Description": "Código da situação do canal..domínio: ..a - ativo.c - cancelado",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "5",
+            "Name": "cod_tip_cnl",
+            "Datatype": "varchar(1)",
+            "Description": "Codigo do tipo de  canal de filiação de estabelecimento",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "6",
+            "Name": "dth_ult_atlz",
+            "Datatype": "datetime",
+            "Description": "Data e hora da última atualização do registro.",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "7",
+            "Name": "cod_opid_ult_atlz",
+            "Datatype": "varchar(8)",
+            "Description": "Código do usuário da rede (opid da novell) que efetuou a última atualização da linha da tabela.",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "8",
+            "Name": "ind_exgc_alcd",
+            "Datatype": "varchar(1)",
+            "Description": "Iindica se é exigida alçada para aprovação da utilização de regimes que não sejam padrões. ..domínio: ..s = exige alçada .n = não exige alçada",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "9",
+            "Name": "ind_part_intg",
+            "Datatype": "varchar(1)",
+            "Description": "Indica se a participação acionaria dos proprietarios deverá chegar a 100%. ..domínio: ..s - sim .n - nao",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "10",
+            "Name": "ind_ptr_unc",
+            "Datatype": "varchar(1)",
+            "Description": "Indica se o canal permitirá vários patamares, ou apenas um patamar. ..domínio: ..s - sim é patamar único (valor default).n - não é patamar único",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "11",
+            "Name": "ind_perm_dplc",
+            "Datatype": "varchar(1)",
+            "Description": "Indicador de permissão de duplicação.´s´ - sim.´n´ - não",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "12",
+            "Name": "ind_perm_vd_smcrd",
+            "Datatype": "varchar(1)",
+            "Description": "Indicador envio do chip simcard. (este campo deverá ter descrição evoluida ou excluído, se não for utilizado nos demais processos de negócio)....domínio:..´s´ - sim.´n´ - não",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         },
+         {
+            "Id": "13",
+            "Name": "ind_inst_aplv_mob",
+            "Datatype": "varchar(1)",
+            "Description": "Indicador de instalação de software. (este campo deverá ter descrição evoluida ou excluído, se não for utilizado nos demais processos de negócio)....domínio:..´s´ - sim.´n´ - não",
+            "PrimaryKey": 0,
+            "Pattern": ""
+         }
+      ]
+   }
+]
