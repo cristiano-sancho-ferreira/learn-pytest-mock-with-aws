@@ -1,16 +1,18 @@
-'''
-cd C:\Dados\2.Script\Mapeamento\
-python C:\Dados\2.Script\Mapeamento\generator_json_v33.py C:\Dados\2.Script\Mapeamento\Mapeamento_wave1
 
-Instalar Anaconda
-pip install xlrd==1.2.0 = Para instalar essa biblioteca tem que configura o pip config
-execute "pip config list -v" para encontrar o pip.config na maquina
+# cd C:\Dados\2.Script\Mapeamento\
+# python C:\Dados\2.Script\Mapeamento\generator_json_v33.py C:\Dados\2.Script\Mapeamento\Mapeamento_wave1
 
-ai vc joga esse arquivo no global
-que ai o anaconda com jupyter assume tbm
-ai tu ja pode tentar rodar o pip
+# Instalar Anaconda
+# pip install xlrd==1.2.0 = Para instalar essa biblioteca tem que configura o pip config
+# execute "pip config list -v" para encontrar o pip.config na maquina
 
-'''
+# ai vc joga esse arquivo no global
+# que ai o anaconda com jupyter assume tbm
+# ai tu ja pode tentar rodar o pip
+
+
+
+
 #import boto3
 import pandas as pd
 import json
@@ -28,8 +30,6 @@ import re
 # 08-06-2022 - Incluido função replace para substituir smallint para bigint (Linha 138)
 
 '''
-
-
 SE NO JSON O "EntityType" estiver definido com o "link" e "SatelliteName" estiver vazio, não serão definidos atributos no campo "CDCColumns";
 SE NO JSON O "EntityType" estiver definido com o "link" mas tiver a definição de satellite em "SatelliteName", o mesmo deverá respeitar os campos definidos em "CDCColumns";
 Se o EntityType = link mas nao tem Satelite (SatelliteName), entao nao precisa alimentar CDC>
@@ -124,7 +124,7 @@ bucket_artifact = 'redels3-sdlf-dev-us-east-1-822609617231-artifactory'
 
 
 def exportar_mapeamento_consolidado():
-    pasta = os.getcwd() #'C:\\Dados\\2.Script\\Mapeamento\\'
+    pasta = os.getcwd()
     print(pasta)
     start_letter = 'data_raw_mapeamento_'
     arquivos = os.listdir(pasta)
@@ -136,8 +136,6 @@ def exportar_mapeamento_consolidado():
         df_full = pd.concat([df_full, df])    
     df_full        
     df_full.to_excel(f'{pasta}\\data_mapeamento_consolidado.xlsx')
-
-
 
 
 def definir_datatype(Datatype):
@@ -204,7 +202,8 @@ def definir_datatype(Datatype):
     if datatype[0:8].lower() == 'varchar2':
         print(datatype)
         datatype = datatype.replace('varchar2', 'varchar').replace(' ', '').strip()
-        Datatype = re.sub("\s", "", datatype)
+        Datatype = re.sub(r"\s+", "", datatype)
+        #Datatype = re.sub("\s", "", datatype)
         print(Datatype)
         
     if datatype[0:4].lower() == 'char':
@@ -540,7 +539,12 @@ def gera_json_heavy(data_raw: DataFrame, path):
                     json.dump(lista, writeJsonfile, indent=2,
                             default=str, ensure_ascii=False)
 
-        print("Gerado arquivos JSON da Heavy Transformation!")
+        print("Gerado arquivos JSON da Heavy Transformation!")          
+        return {
+            'statusCode': 200,
+            "message": "successfully"
+        }
+    
     except Exception as ex:
         logger.error(str(ex), exc_info=True)
         ##print(file)
@@ -565,9 +569,10 @@ def gera_json_light(data_raw: DataFrame, nm_final_arq, path):
         body = body.drop_duplicates()
         body_values = body.values.tolist()
 
-        x["Description"].fillna("Não definida", inplace=True)
-        x["Description_1"].fillna("Não definida", inplace=True)
-        x["Dataset"].fillna("Não definida", inplace = True) 
+        # Preencher valores ausentes na coluna 'Description' com 'Não definida'
+        x["Description"] = x["Description"].fillna("Não definida")
+        x["Description_1"] = x["Description_1"].fillna("Não definida")
+        x["Dataset"] = x["Dataset"].fillna("Não definida")
 		
         # Gerando o Header do arquivo Json
         for x in header_values:
@@ -621,7 +626,9 @@ def gera_json_light(data_raw: DataFrame, nm_final_arq, path):
                 if y[0] == x[1]:
                     Id = y[1]
                     Name = y[2].lower().strip()
-                    Datatype = y[3].lower().strip().replace('integer','int').replace('\s','')
+                    datatype = y[3].lower().strip().replace('integer', 'int')
+                    Datatype = re.sub(r"\s+", "", datatype)
+                    #Datatype = y[3].lower().strip().replace('integer','int').replace('\s','')
                     Description = y[4].capitalize().strip().replace('\n',' ').replace('\r','')
                     PrimaryKey = y[5]
                     if Datatype in ['int', 'bigint']:
@@ -666,6 +673,11 @@ def gera_json_light(data_raw: DataFrame, nm_final_arq, path):
             with open(f"{path}\\raw-{Dataset}-{Filename}{nm_final_arq}.json", "w", encoding="utf-8") as writeJsonfile:
                 json.dump(lista, writeJsonfile, indent=3, 
                           default=str, ensure_ascii=False)
+                
+        return {
+            'statusCode': 200,
+            "message": "successfully"
+        }
 
     except Exception as ex:
         logger.error(str(ex), exc_info=True)
