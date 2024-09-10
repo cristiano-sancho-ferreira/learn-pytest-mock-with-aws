@@ -13,3 +13,7 @@ variable "environment" {
 variable "lambda_runtime" {
   type = string
 }
+
+variable "application" {
+  type = string
+}

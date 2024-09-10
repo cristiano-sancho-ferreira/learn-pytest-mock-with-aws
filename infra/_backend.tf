@@ -8,7 +8,7 @@ terraform {
   }
   backend "s3" {
     bucket = "sancho-terraform-state"
-    key    = "state/aws/sdlf/sdlf-infra/terraform.tfstate"
+    key    = "state/aws/sdlf/generation-json/terraform.tfstate"
     region = "us-east-1"
   }
 }

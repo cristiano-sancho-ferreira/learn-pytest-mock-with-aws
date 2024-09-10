@@ -6,3 +6,4 @@ common_tags = {
   "Projeto" = "AWS with Terraform"
   "Fase"    = "Data Lake"
 }
+application = "generation-json"

@@ -10,8 +10,46 @@ locals {
 }
 
 
-resource "aws_iam_role" "routing" {
-  name                 = "pytest-${var.environment}-routing-a"
+
+resource "aws_iam_policy" "lambda_common" {
+  name   = "sdlf-${var.environment}-${var.application}-common-a"
+  policy = data.aws_iam_policy_document.lambda_common.json
+  tags   = var.common_tags
+}
+
+data "aws_iam_policy_document" "lambda_common" {
+  statement {
+    actions = [
+      "logs:CreateLogStream",
+      "logs:PutLogEvents"
+    ]
+    resources = [
+      "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:*"
+    ]
+  }
+  statement {
+    actions = [
+      "logs:CreateLogGroup"
+    ]
+    resources = [
+      "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/sdlf-${var.environment}-${var.application}-*"
+    ]
+  }
+  statement {
+    actions = [
+      "ssm:GetParameter",
+      "ssm:GetParameters"
+    ]
+    resources = [
+      "arn:aws:ssm:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:parameter/SDLF/*"
+    ]
+  }
+}
+
+
+
+resource "aws_iam_role" "generation_json" {
+  name                 = "pytest-${var.environment}-${var.application}-a"
   #permissions_boundary = var.permissions_boundary_managed_policy
   path                 = "/state-machine/"
   tags                 = var.common_tags
@@ -29,49 +67,31 @@ resource "aws_iam_role" "routing" {
     ]
 }
 EOF
-  depends_on           = [aws_iam_role.step5]
 }
 
-resource "aws_iam_role_policy_attachment" "routing" {
-  role       = aws_iam_role.routing.name
+resource "aws_iam_role_policy_attachment" "generation_json" {
+  role       = aws_iam_role.generation_json.name
   policy_arn = aws_iam_policy.lambda_common.arn
 }
 
-resource "aws_iam_role_policy" "routing" {
-  name   = "pytest-${var.environment}-mock-a"
-  role   = aws_iam_role.routing.id
-  policy = data.aws_iam_policy_document.routing.json
-}
 
-data "aws_iam_policy_document" "routing" {
-  statement {
-    actions = [
-      "states:StartExecution"
-    ]
-    resources = [
-      aws_sfn_state_machine.this.arn
-    ]
-  }
-}
-
-
-
-data "archive_file" "routing" {
+data "archive_file" "generation_json" {
   type        = "zip"
   source_file = "../app/src/lambda_function.py"
   output_path = "../app/src/lambda_function.zip"
 }
 
-resource "aws_lambda_function" "routing" {
-  function_name    = join("-", ["pytest", var.environment, "routing-a"])
-  description      = "File to test with pytestusing AWS Lambda"
-  role             = aws_iam_role.routing.arn
+resource "aws_lambda_function" "generation_json" {
+  function_name    = join("-", ["pytest", var.environment, var.application])
+  description      = "File to test with pytest using AWS Lambda"
+  role             = aws_iam_role.generation_json.arn
   handler          = local.lambda_handler
   runtime          = var.lambda_runtime
   memory_size      = 128
   timeout          = 60
-  source_code_hash = data.archive_file.routing.output_base64sha256
-  filename         = data.archive_file.routing.output_path
+  source_code_hash = data.archive_file.generation_json.output_base64sha256
+  filename         = data.archive_file.generation_json.output_path
+  layers = [  ]
   tags             = var.common_tags
 }
 
