@@ -1,6 +1,7 @@
 .pytest_cache
 .coverage*
 env*
-app\tests\.*
-infra\.*
+app/tests/.*
+infra/.*
+
 

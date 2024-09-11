@@ -1054,7 +1054,12 @@ def main() -> None:
         logger.error(str(ex), exc_info=True)
         print(f'Erro: {file} - {ex}')
         
-    
+'''   
 if __name__ == "__main__":
     main()
     #exportar_mapeamento_consolidado()
+'''
+    
+def lambda_handler(event, context):
+    print(event)
+

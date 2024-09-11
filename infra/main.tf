@@ -10,70 +10,38 @@ locals {
 }
 
 
+data "aws_iam_policy_document" "assume_role" {
+  statement {
+    effect = "Allow"
 
-resource "aws_iam_policy" "lambda_common" {
-  name   = "sdlf-${var.environment}-${var.application}-common-a"
-  policy = data.aws_iam_policy_document.lambda_common.json
-  tags   = var.common_tags
-}
+    principals {
+      type        = "Service"
+      identifiers = ["lambda.amazonaws.com"]
+    }
 
-data "aws_iam_policy_document" "lambda_common" {
-  statement {
-    actions = [
-      "logs:CreateLogStream",
-      "logs:PutLogEvents"
-    ]
-    resources = [
-      "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:*"
-    ]
-  }
-  statement {
-    actions = [
-      "logs:CreateLogGroup"
-    ]
-    resources = [
-      "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/sdlf-${var.environment}-${var.application}-*"
-    ]
-  }
-  statement {
-    actions = [
-      "ssm:GetParameter",
-      "ssm:GetParameters"
-    ]
-    resources = [
-      "arn:aws:ssm:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:parameter/SDLF/*"
-    ]
+    actions = ["sts:AssumeRole"]
   }
 }
 
-
-
-resource "aws_iam_role" "generation_json" {
-  name                 = "pytest-${var.environment}-${var.application}-a"
-  #permissions_boundary = var.permissions_boundary_managed_policy
-  path                 = "/state-machine/"
-  tags                 = var.common_tags
-  assume_role_policy   = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "Service": "lambda.amazonaws.com"
-            },
-            "Action": "sts:AssumeRole"
-        }
-    ]
-}
-EOF
+resource "aws_iam_role" "iam_for_lambda" {
+  name               = "iam_for_lambda"
+  assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
-resource "aws_iam_role_policy_attachment" "generation_json" {
-  role       = aws_iam_role.generation_json.name
-  policy_arn = aws_iam_policy.lambda_common.arn
+
+resource "aws_iam_role_policy_attachment" "iam_for_lambda" {
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"                
+  role = aws_iam_role.iam_for_lambda.id
 }
 
+
+resource "aws_lambda_permission" "allow_bucket" {
+  statement_id  = "AllowExecutionFromS3Bucket"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.generation_json.arn
+  principal     = "s3.amazonaws.com"
+  source_arn    = aws_s3_bucket.bucket.arn
+}
 
 data "archive_file" "generation_json" {
   type        = "zip"
@@ -84,14 +52,62 @@ data "archive_file" "generation_json" {
 resource "aws_lambda_function" "generation_json" {
   function_name    = join("-", ["pytest", var.environment, var.application])
   description      = "File to test with pytest using AWS Lambda"
-  role             = aws_iam_role.generation_json.arn
+  role             = aws_iam_role.iam_for_lambda.arn
   handler          = local.lambda_handler
   runtime          = var.lambda_runtime
   memory_size      = 128
   timeout          = 60
   source_code_hash = data.archive_file.generation_json.output_base64sha256
   filename         = data.archive_file.generation_json.output_path
-  layers = [  ]
+  layers = ["arn:aws:lambda:us-east-1:336392948345:layer:AWSSDKPandas-Python311:17", aws_lambda_layer_version.xlrd-openpyxl.arn]
   tags             = var.common_tags
 }
+
+
+
+
+
+
+
+
+
+
+
+resource "aws_s3_bucket" "bucket" {
+  bucket        =  "teste-543543265465-sancho"
+  force_destroy = "true"
+}
+
+
+resource "aws_s3_bucket_notification" "bucket_notification" {
+  bucket = aws_s3_bucket.bucket.id
+
+  lambda_function {
+    lambda_function_arn = aws_lambda_function.generation_json.arn
+    events              = ["s3:ObjectCreated:*"]
+    filter_prefix       = ""
+    filter_suffix       = ""
+  }
+
+  depends_on = [aws_lambda_permission.allow_bucket]
+}
+
+#############  Wrangler Lambda LAYER  #############
+
+data "archive_file" "xlrd-openpyxl" {
+  type        = "zip"
+  source_dir  = "${path.module}/lambda-layer/src"
+  output_path = "${path.module}/lambda-layer/xlrd-openpyxl/xlrd-openpyxl.zip"
+}
+
+resource "aws_lambda_layer_version" "xlrd-openpyxl" {
+  filename            = data.archive_file.xlrd-openpyxl.output_path
+  layer_name          = "xlrd-openpyxl"
+  source_code_hash    = data.archive_file.xlrd-openpyxl.output_base64sha256
+  compatible_runtimes = [var.lambda_runtime]
+  description         = "Contains the latest version xlrd 1.2.0 and openpyxl"
+}
+
+
+
 
