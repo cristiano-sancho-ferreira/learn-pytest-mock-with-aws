@@ -54,6 +54,15 @@ resource "aws_iam_policy" "lambda_policy" {
           "sqs:GetQueueAttributes"
         ]
         Resource = "${aws_sqs_queue.file_queue.arn}"
+      },
+      {
+        Effect = "Allow"
+        Action = [
+        "logs:CreateLogStream",
+        "logs:CreateLogGroup",
+        "logs:PutLogEvents"
+        ]
+        Resource = "*"
       }
     ]
   })
