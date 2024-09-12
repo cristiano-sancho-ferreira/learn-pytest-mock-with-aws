@@ -1,4 +1,4 @@
-#import boto3
+import boto3
 import pandas as pd
 import json
 import logging
@@ -6,7 +6,7 @@ import xlrd
 import fnmatch
 import os
 import sys
-from time import time
+from time import time, sleep
 from pandas import DataFrame
 from typing import Dict
 import re 
@@ -107,6 +107,7 @@ file_pattern4 = ['flma509l']
 folder = os.getcwd() #'C:\\Dados\\2.Script\\Mapeamento\\'
 bucket_artifact = 'redels3-sdlf-dev-us-east-1-822609617231-artifactory'
 
+s3 = boto3.client('s3')
 
 def exportar_mapeamento_consolidado():
     pasta = os.getcwd()
@@ -520,14 +521,15 @@ def gera_json_heavy(data_raw: DataFrame, path):
             # Exclude some file generation with exceptions
             if SourceTable not in file_vault_exception:
                 # generate json file with interface information
-                with open(f"{path}\\vault-{Dataset}-{SourceTable}.json", "w", encoding="utf-8") as writeJsonfile:
+                with open(f"{path}/vault-{Dataset}-{SourceTable}.json", "w", encoding="utf-8") as writeJsonfile:
                     json.dump(lista, writeJsonfile, indent=2,
                             default=str, ensure_ascii=False)
 
         print("Gerado arquivos JSON da Heavy Transformation!")          
         return {
             'statusCode': 200,
-            "message": "successfully"
+            "message": "successfully",
+            "local_file_raw": f"{path}/vault-{Dataset}-{SourceTable}.json"
         }
     
     except Exception as ex:
@@ -655,19 +657,19 @@ def gera_json_light(data_raw: DataFrame, nm_final_arq, path):
 
             print("Grava o arquivo Json com informações de interface")
             # Grava o arquivo Json com informações de interface
-            with open(f"{path}\\raw-{Dataset}-{Filename}{nm_final_arq}.json", "w", encoding="utf-8") as writeJsonfile:
+            with open(f"{path}/raw-{Dataset}-{Filename}{nm_final_arq}.json", "w", encoding="utf-8") as writeJsonfile:
                 json.dump(lista, writeJsonfile, indent=3, 
                           default=str, ensure_ascii=False)
                 
         return {
             'statusCode': 200,
-            "message": "successfully"
+            "message": "successfully",
+            "local_file_raw": f"{path}/raw-{Dataset}-{Filename}{nm_final_arq}.json"
         }
 
-    except Exception as ex:
-        logger.error(str(ex), exc_info=True)
-        print(file)
-        raise ex
+    except Exception as e:
+        logger.error(str(e), exc_info=True)
+        raise e
 
 
 def proc_planilhas(plan_in, sheet_in, path) -> Dict[str, DataFrame]:
@@ -698,13 +700,12 @@ def proc_planilhas(plan_in, sheet_in, path) -> Dict[str, DataFrame]:
         pattern_value = ''
 
 
-        path_proc = path + '/' + plan_in
+        path_proc = f'{path}/{plan_in}'
         #path_proc = 'C:/Users/740886/Documents/Rede/AWS_Desenv/Planilhas_modelagem/JSON/' + plan_in
-        #print('Planilha a ser processada {} '.format(path_proc))
+        print('Planilha a ser processada {} '.format(path_proc))
         inputWorkbook = xlrd.open_workbook(path_proc)
         linha_ok = False
         processa_aba = True
-        array_plan = []
 
         # Lista todas as Abas da Planilha em Processamento
         sheet_names = inputWorkbook.sheet_names()
@@ -919,49 +920,6 @@ def proc_planilhas(plan_in, sheet_in, path) -> Dict[str, DataFrame]:
         #raise ex
 
 
-
-#################################
-'''
-def selected_files(folder_files, files, layer1, layer2):
-    selected_files_raw = [x for x in files if x.endswith('.json') & x.startswith(layer1)]
-    print(selected_files_raw)
-
-    for file in selected_files_raw:
-        print(file)
-
-        path_file = f'{folder_files}//{file}'
-        path_file_s3 = f'governance/metadata/{layer2}_transformation/analytics/ingestion/{file.split("-")[1]}/{file}'
-        result = upload_file_artifactory(path_file, bucket_artifact, path_file_s3)
-        if result:
-            print(result)
-    return result
-
-
-def upload_file_artifactory(file_name, bucket, object_name=None):
-    """Upload a file to an S3 bucket
-
-    :param file_name: File to upload
-    :param bucket: Bucket to upload to
-    :param object_name: S3 object name. If not specified then file_name is used
-    :return: True if file was uploaded, else False
-    """
-
-    # If S3 object_name was not specified, use file_name
-    if object_name is None:
-        object_name = os.path.basename(file_name)
-
-    # Upload the file
-    s3_client = boto3.client('s3')
-    try:
-        response = s3_client.upload_file(file_name, bucket, object_name)
-    except ClientError as e:
-        logging.error(e)
-        return False
-    return f'Arquivos {object_name} copiado para S3'
-'''
-#########################################
-
-
 def main() -> None:
     try:
         print(f"sys.argv {len(sys.argv)}: {sys.argv}")
@@ -1059,7 +1017,88 @@ if __name__ == "__main__":
     main()
     #exportar_mapeamento_consolidado()
 '''
+
+def download_file_from_s3(bucket_name, s3_key, local_file_path):
     
+    try:
+        # Verifica se o arquivo já existe no diretório /tmp e deleta se necessário
+        if os.path.exists(local_file_path):
+            os.remove(local_file_path)
+            print(f"Arquivo existente {local_file_path} foi deletado.")
+
+        # Baixando o arquivo do S3 para o local especificado
+        s3.download_file(bucket_name, s3_key, local_file_path)
+
+        # Verificando se o arquivo foi baixado corretamente
+        if os.path.exists(local_file_path):
+            print(f"Arquivo {local_file_path} encontrado no diretório /tmp.")
+        else:
+            print(f"Arquivo {local_file_path} não foi encontrado no diretório /tmp.")
+
+        print(f"Arquivo {s3_key} baixado com sucesso para {local_file_path}.")
+    except Exception as e:
+        print(f"Erro ao baixar o arquivo do S3: {str(e)}")
+
+def upload_file_to_s3(bucket_name, local_file_path, s3_key):
+    
+    try:
+        # Fazendo o upload do arquivo do diretório local (/tmp) para o S3
+        s3.upload_file(local_file_path, bucket_name, s3_key)
+        print(f"Arquivo {local_file_path} enviado com sucesso para {bucket_name}/{s3_key}.")
+    except Exception as e:
+        print(f"Erro ao enviar o arquivo para o S3: {str(e)}")
+
+
 def lambda_handler(event, context):
     print(event)
+    # Defina o nome do bucket, o caminho do arquivo no S3 (s3_key) e o caminho local na Lambda
+    bucket_name = event["Records"][0]["s3"]['bucket']['name']
+    s3_key = event["Records"][0]["s3"]['object']['key']
+    file = s3_key.split('/')[-1]
+    local_file_path = f'/tmp/{file}'
+    path = '/tmp'
 
+    print('Variaveis de ambiente')
+    print(f'Bucket: {bucket_name}')
+    print(f'Key: {s3_key}')
+    print(f'File: {file}')
+    print(f'local file path: {local_file_path}')
+    print(f'Path: {path}')
+    
+    print('Baixa o arquivo do S3')
+    download_file_from_s3(bucket_name, s3_key, local_file_path)    
+    sleep(10)
+    
+    print('Gera arquivo da Aba Mapping')
+    dict_ret = proc_planilhas(file, 'Mapping', path)
+    
+    print('============= Dicionario retorno ================')
+    print(dict_ret)
+    # Transforma o Dicionario de retorno em Dataframe
+    df_dict_ret = pd.DataFrame(dict_ret)
+    print(df_dict_ret)
+
+    # Gera arquivo json raw
+    file_raw = gera_json_light(df_dict_ret, '', path)
+    sleep(10) 
+
+    # Sobe o arquivo do /tmp para o S3
+    upload_file_to_s3(bucket_name, file_raw["local_file_raw"], file_raw["local_file_raw"].split("/")[-1])
+
+    # Gera arquivo json vault
+    file_vault = gera_json_heavy(df_dict_ret, path)
+    sleep(10) 
+
+    # Sobe o arquivo do /tmp para o S3
+    upload_file_to_s3(bucket_name, file_vault["local_file_raw"], file_vault["local_file_raw"].split("/")[-1])
+
+
+    print(f'============= Finalizado {file} ================')
+
+    return {
+        'statusCode': 200,
+        'body': f"{dict_ret}"
+    }
+
+  
+  

@@ -59,18 +59,9 @@ resource "aws_lambda_function" "generation_json" {
   timeout          = 60
   source_code_hash = data.archive_file.generation_json.output_base64sha256
   filename         = data.archive_file.generation_json.output_path
-  layers = ["arn:aws:lambda:us-east-1:336392948345:layer:AWSSDKPandas-Python311:17", aws_lambda_layer_version.xlrd-openpyxl.arn]
+  layers = ["arn:aws:lambda:us-east-1:336392948345:layer:AWSSDKPandas-Python311:17", aws_lambda_layer_version.xlrd-120.arn]
   tags             = var.common_tags
 }
-
-
-
-
-
-
-
-
-
 
 
 resource "aws_s3_bucket" "bucket" {
@@ -85,8 +76,8 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
   lambda_function {
     lambda_function_arn = aws_lambda_function.generation_json.arn
     events              = ["s3:ObjectCreated:*"]
-    filter_prefix       = ""
-    filter_suffix       = ""
+    filter_prefix       = "Mapeamento_"
+    filter_suffix       = ".xlsx"
   }
 
   depends_on = [aws_lambda_permission.allow_bucket]
@@ -94,16 +85,16 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
 
 #############  Wrangler Lambda LAYER  #############
 
-data "archive_file" "xlrd-openpyxl" {
+data "archive_file" "xlrd-120" {
   type        = "zip"
   source_dir  = "${path.module}/lambda-layer/src"
-  output_path = "${path.module}/lambda-layer/xlrd-openpyxl/xlrd-openpyxl.zip"
+  output_path = "${path.module}/lambda-layer/xlrd-1.2.0/xlrd-1.2.0.zip"
 }
 
-resource "aws_lambda_layer_version" "xlrd-openpyxl" {
-  filename            = data.archive_file.xlrd-openpyxl.output_path
-  layer_name          = "xlrd-openpyxl"
-  source_code_hash    = data.archive_file.xlrd-openpyxl.output_base64sha256
+resource "aws_lambda_layer_version" "xlrd-120" {
+  filename            = data.archive_file.xlrd-120.output_path
+  layer_name          = "xlrd-1.2.0"
+  source_code_hash    = data.archive_file.xlrd-120.output_base64sha256
   compatible_runtimes = [var.lambda_runtime]
   description         = "Contains the latest version xlrd 1.2.0 and openpyxl"
 }
