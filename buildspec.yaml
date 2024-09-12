@@ -1,0 +1,28 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - "apt install unzip -y"
+      - "wget https://releases.hashicorp.com/terraform/1.5.2/terraform_1.5.2_linux_amd64.zip"
+      - "unzip terraform_1.5.2_linux_amd64.zip"
+      - "mv terraform /usr/local/bin/"
+      - "pwd"
+
+  pre_build:
+    commands:
+      - cd infra
+      - terraform init 
+  build:
+    commands:
+      - "pwd"
+      - terraform fmt --recursive
+      - terraform plan -auto-approve -var-file="./_variables/prd.tfvars"
+      - terraform apply -auto-approve -var-file="./_variables/prd.tfvars"
+      #- terraform destroy -auto-approve -var-file="./_variables/prd.tfvars"
+      
+  post_build:
+    commands:
+      - echo Terraform apply completed on `date`
+
+      
