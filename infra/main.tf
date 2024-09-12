@@ -133,14 +133,13 @@ resource "aws_s3_bucket" "bucket" {
 }
 
 
-resource "aws_s3_bucket_notification" "upload_notification" {
+resource "aws_s3_bucket_notification" "bucket_notification" {
   bucket = aws_s3_bucket.bucket.id
 
   queue {
     queue_arn     = aws_sqs_queue.file_queue.arn
     events        = ["s3:ObjectCreated:*"]
     filter_prefix       = "Mapeamento_"
-    filter_suffix       = ".xlsx"
   }
   #depends_on = [aws_lambda_permission.allow_bucket]
 }
@@ -156,7 +155,8 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
     filter_suffix       = ".xlsx"
   }
 
-}*/
+}
+*/
 
 #############  Wrangler Lambda LAYER  #############
 
@@ -165,10 +165,27 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
 
 # Fila SQS
 resource "aws_sqs_queue" "file_queue" {
-  name                        = "file-processing-queue"
+  name = "s3-event-notification-queue"
   visibility_timeout_seconds   = 300
   message_retention_seconds    = 86400
   receive_wait_time_seconds    = 10
+
+  policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "sqs:SendMessage",
+      "Resource": "arn:aws:sqs:*:*:s3-event-notification-queue",
+      "Condition": {
+        "ArnEquals": { "aws:SourceArn": "${aws_s3_bucket.bucket.arn}" }
+      }
+    }
+  ]
+}
+POLICY
 }
 
 
