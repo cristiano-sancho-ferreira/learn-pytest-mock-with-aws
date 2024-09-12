@@ -17,7 +17,7 @@ phases:
     commands:
       - "pwd"
       - terraform fmt --recursive
-      - terraform plan -auto-approve -var-file="./_variables/prd.tfvars"
+      - terraform plan -var-file="./_variables/prd.tfvars"
       - terraform apply -auto-approve -var-file="./_variables/prd.tfvars"
       #- terraform destroy -auto-approve -var-file="./_variables/prd.tfvars"
       
