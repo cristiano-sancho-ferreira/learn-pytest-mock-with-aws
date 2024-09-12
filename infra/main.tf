@@ -87,13 +87,13 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
 
 data "archive_file" "xlrd-120" {
   type        = "zip"
-  source_dir  = "${path.module}/lambda-layer/src"
-  output_path = "${path.module}/lambda-layer/xlrd-1.2.0/xlrd-1.2.0.zip"
+  source_dir  = "${path.module}/lambda-layer/xlrd-120/src"
+  output_path = "${path.module}/lambda-layer/xlrd-120/xlrd-120.zip"
 }
 
 resource "aws_lambda_layer_version" "xlrd-120" {
   filename            = data.archive_file.xlrd-120.output_path
-  layer_name          = "xlrd-1.2.0"
+  layer_name          = "xlrd-120"
   source_code_hash    = data.archive_file.xlrd-120.output_base64sha256
   compatible_runtimes = [var.lambda_runtime]
   description         = "Contains the latest version xlrd 1.2.0 and openpyxl"
