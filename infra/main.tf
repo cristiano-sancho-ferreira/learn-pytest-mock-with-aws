@@ -127,13 +127,11 @@ resource "aws_lambda_function" "generation_json" {
   environment {
     variables = {
       OUTPUT_BUCKET = aws_s3_bucket.bucket.bucket
+      SQS_NAME = aws_sqs_queue.file_queue.name
+      ACCOUNT_ID = data.aws_caller_identity.current.account_id
     }
   }
 }
-
-
-
-
 
 
 resource "aws_s3_bucket" "bucket" {
@@ -167,17 +165,16 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
 }
 */
 
-#############  Wrangler Lambda LAYER  #############
-
-
-
 
 # Fila SQS
 resource "aws_sqs_queue" "file_queue" {
-  name = "s3-event-notification-queue"
+  name = "s3-event-notification-queue.fifo"
+  fifo_queue                  = true
+  content_based_deduplication = true
   visibility_timeout_seconds   = 300
   message_retention_seconds    = 86400
   receive_wait_time_seconds    = 10
+
 
   policy = <<POLICY
 {

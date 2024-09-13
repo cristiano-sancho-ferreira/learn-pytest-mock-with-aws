@@ -108,6 +108,11 @@ folder = os.getcwd() #'C:\\Dados\\2.Script\\Mapeamento\\'
 bucket_artifact = 'redels3-sdlf-dev-us-east-1-822609617231-artifactory'
 
 s3 = boto3.client('s3')
+sqs = boto3.client('sqs')
+
+# Acessando variáveis de ambiente
+account_id = os.environ.get('ACCOUNT_ID')
+sqs_name = os.environ.get('SQS_NAME')
 
 def exportar_mapeamento_consolidado():
     pasta = os.getcwd()
@@ -1049,11 +1054,28 @@ def upload_file_to_s3(bucket_name, local_file_path, s3_key):
         print(f"Erro ao enviar o arquivo para o S3: {str(e)}")
 
 
+def delete_sqs(receipt_handle):
+
+    queue_url = f"https://sqs.us-east-1.amazonaws.com/{account_id}/{sqs_name}"
+
+    # Apagar a mensagem da fila SQS usando o receiptHandle
+    response = sqs.delete_message(
+        QueueUrl=queue_url,
+        ReceiptHandle=receipt_handle
+    )
+    print(f"Mensagem deletada da fila. Resposta: {response}")
+
+
 def lambda_handler(event, context):
     print(event)
     # Defina o nome do bucket, o caminho do arquivo no S3 (s3_key) e o caminho local na Lambda
-    bucket_name = event["Records"][0]["s3"]['bucket']['name']
-    s3_key = event["Records"][0]["s3"]['object']['key']
+    event_s3_str = event["Records"][0]['body']
+    event_s3_dict = json.loads(event_s3_str)
+    receipt_handle = event["Records"][0]['receiptHandle']
+    print(event_s3_dict)
+
+    bucket_name = event_s3_dict["Records"][0]["s3"]['bucket']['name']
+    s3_key = event_s3_dict["Records"][0]["s3"]['object']['key']
     file = s3_key.split('/')[-1]
     local_file_path = f'/tmp/{file}'
     path = '/tmp'
@@ -1092,6 +1114,8 @@ def lambda_handler(event, context):
     # Sobe o arquivo do /tmp para o S3
     upload_file_to_s3(bucket_name, file_vault["local_file_raw"], file_vault["local_file_raw"].split("/")[-1])
 
+    # Apagar a mensagem da fila SQS usando o receiptHandle
+    delete_sqs(receipt_handle)
 
     print(f'============= Finalizado {file} ================')
 
