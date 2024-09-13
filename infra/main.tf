@@ -168,9 +168,7 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
 
 # Fila SQS
 resource "aws_sqs_queue" "file_queue" {
-  name = "s3-event-notification-queue.fifo"
-  fifo_queue                  = true
-  content_based_deduplication = true
+  name = "s3-event-notification-queue"
   visibility_timeout_seconds   = 300
   message_retention_seconds    = 86400
   receive_wait_time_seconds    = 10
