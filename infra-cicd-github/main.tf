@@ -10,7 +10,7 @@
 
 # https://github.com/Abdel-Raouf/terraform-aws-codepipeline-ci-cd/blob/master/modules/codepipeline/iam.tf
 #################
-data "aws_caller_identity" "current" {}
+data "aws_caller_identity" "current" {} 
 data "aws_region" "current" {}
 
 /*
@@ -58,6 +58,11 @@ resource "aws_codebuild_project" "build_project" {
     environment_variable {
       name  = "ORG"
       value = var.organization_name  # aws_iam_access_key.ci_cd_access_key.id # Access Key da Conta B
+    } 
+    
+    environment_variable {
+      name  = "ACCOUNT"
+      value = data.aws_caller_identity.current.account_id
     }
   }
 
@@ -114,6 +119,11 @@ resource "aws_codebuild_project" "build_project_prod" {
     environment_variable {
       name  = "ORG"
       value = var.organization_name  # aws_iam_access_key.ci_cd_access_key.id # Access Key da Conta B
+    }
+    
+    environment_variable {
+      name  = "ACCOUNT"
+      value = data.aws_caller_identity.current.account_id
     }
 
   }
