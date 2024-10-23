@@ -226,7 +226,8 @@ resource "aws_iam_role_policy" "codebuild_policy" {
         "kms:GenerateDataKey*",
         "kms:Encrypt",
         "kms:ReEncrypt*",
-        "kms:Decrypt"
+        "kms:Decrypt",
+        "secretsmanager:GetSecretValue"
       ],
       "Resource": [
         "*"
