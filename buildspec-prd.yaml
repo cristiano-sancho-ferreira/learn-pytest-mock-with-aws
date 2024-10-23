@@ -16,7 +16,7 @@ phases:
       - python create_s3_bucket.py $ORG-$ACCOUNT-terraform-state
       - aws s3 ls
       - cd infra
-      - terraform init 
+      - terraform init -backend-config="bucket=${ORG}-${ACCOUNT}-terraform-state" -backend-config="key=state/aws/cicd-github/terraform.tfstate" -backend-config="region=us-east-1"
   build:
     commands:
       - "pwd"
