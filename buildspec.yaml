@@ -11,6 +11,7 @@ phases:
 
   pre_build:
     commands:
+      - python create_s3_bucket.py $ORG-terraform-state
       - aws s3 ls
       - cd infra
       - terraform init 

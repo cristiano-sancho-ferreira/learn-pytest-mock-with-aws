@@ -1,4 +1,5 @@
 region                 = "us-east-1"
+organization_name      = "cross"
 environment            = "prd"
 lambda_runtime         = "python3.11"
 common_tags = {

@@ -54,6 +54,11 @@ resource "aws_codebuild_project" "build_project" {
       value = "apply"
       type  = "PLAINTEXT"
     } 
+    
+    environment_variable {
+      name  = "ORG"
+      value = var.organization_name  # aws_iam_access_key.ci_cd_access_key.id # Access Key da Conta B
+    }
   }
 
   source {
