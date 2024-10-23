@@ -51,7 +51,7 @@ resource "aws_codebuild_project" "build_project" {
 
     environment_variable {
       name  = "TF_COMMAND"
-      value = "apply"
+      value = "destroy"  # apply or destroy
       type  = "PLAINTEXT"
     } 
     
@@ -102,7 +102,7 @@ resource "aws_codebuild_project" "build_project_prod" {
 
     environment_variable {
       name  = "TF_COMMAND"
-      value = "apply"
+      value = "destroy"  # apply or destroy
       type  = "PLAINTEXT"
     } 
     
