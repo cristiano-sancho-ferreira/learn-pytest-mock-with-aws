@@ -15,7 +15,7 @@ phases:
       - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
       - export ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
       - python create_s3_bucket.py $ORG-$ACCOUNT_ID-terraform-state
-      - aws s3 ls
+      - aws s3 ls ${ORG}-${ACCOUNT_ID}-terraform-state
       - cd infra
       - terraform init -migrate-state -backend-config="bucket=${ORG}-${ACCOUNT_ID}-terraform-state" -backend-config="key=state/aws/sdlf/generation-json/terraform.tfstate" -backend-config="region=us-east-1"
   build:

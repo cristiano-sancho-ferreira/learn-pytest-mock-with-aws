@@ -135,7 +135,7 @@ resource "aws_lambda_function" "generation_json" {
 
 
 resource "aws_s3_bucket" "bucket" {
-  bucket        =  "teste-543543265465-sancho"
+  bucket        =  "pytest-${data.aws_caller_identity.current.account_id}-${var.environment}-${var.application}"
   force_destroy = "true"
 }
 
