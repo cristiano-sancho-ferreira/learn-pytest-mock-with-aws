@@ -108,12 +108,14 @@ resource "aws_codebuild_project" "build_project_prod" {
     
     environment_variable {
       name  = "AWS_ACCESS_KEY_ID"
-      value = var.aws_access_key_id  # aws_iam_access_key.ci_cd_access_key.id # Access Key da Conta B
+      # aws_iam_access_key.ci_cd_access_key.id # Access Key da Conta B
+      value = "secrets-manager:${aws_secretsmanager_secret.ci_cd_credentials.arn}:access_key" 
     }
 
     environment_variable {
       name  = "AWS_SECRET_ACCESS_KEY"
-      value = var.aws_secret_access_key # aws_iam_access_key.ci_cd_access_key.secret # Secret Key da Conta B
+      value = "secrets-manager:${aws_secretsmanager_secret.ci_cd_credentials.arn}:secret_key"
+      # aws_iam_access_key.ci_cd_access_key.secret # Secret Key da Conta B
     }
     
     environment_variable {
@@ -447,3 +449,17 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
 }
 EOF
 }
+
+
+resource "aws_secretsmanager_secret" "ci_cd_credentials" {
+  name = join("-", [var.organization_name, var.application_name, var.environment, "ci-cd-credentials"])
+}
+
+resource "aws_secretsmanager_secret_version" "ci_cd_credentials_version" {
+  secret_id = aws_secretsmanager_secret.ci_cd_credentials.id
+  secret_string = jsonencode({
+    access_key = var.aws_access_key_id
+    secret_key = var.aws_secret_access_key
+  })
+}
+
