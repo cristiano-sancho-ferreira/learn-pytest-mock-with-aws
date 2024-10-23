@@ -74,3 +74,12 @@ variable "artifact_type" {
 variable "vcs_repo" {
   type = object({ identifier = string, branch = string })
 }
+
+
+variable "aws_access_key_id" {
+  type        = string
+}
+
+variable "aws_secret_access_key" {
+  type        = string
+}

@@ -34,7 +34,7 @@ resource "aws_dynamodb_table" "tf_state_lock_github" {
 # CodeBuild Section for the Test stage
 ##############################################
 resource "aws_codebuild_project" "build_project" {
-  name          = join("-", [var.organization_name, var.application_name, var.environment, data.aws_region.current.name, data.aws_caller_identity.current.account_id, "pipeline-build-github"])
+  name          = join("-", [var.organization_name, var.application_name, var.environment, data.aws_region.current.name, data.aws_caller_identity.current.account_id, "build-github"])
   description   = "The CodeBuild project for ${var.organization_name}"
   service_role  = aws_iam_role.codebuild_assume_role.arn
   build_timeout = var.build_timeout
@@ -48,11 +48,12 @@ resource "aws_codebuild_project" "build_project" {
     image           = var.build_image
     type            = "LINUX_CONTAINER"
     privileged_mode = var.build_privileged_override
+
     environment_variable {
       name  = "TF_COMMAND"
       value = "apply"
       type  = "PLAINTEXT"
-    }
+    } 
   }
 
   source {
@@ -69,6 +70,61 @@ resource "aws_codebuild_project" "build_project" {
 
   tags = var.common_tags
 }
+
+##############################################
+# CodeBuild Section for the Test stage
+##############################################
+resource "aws_codebuild_project" "build_project_prod" {
+  name          = join("-", [var.organization_name, var.application_name, var.environment, data.aws_region.current.name, data.aws_caller_identity.current.account_id, "build-github-cross"])
+  description   = "The CodeBuild project for ${var.organization_name}"
+  service_role  = aws_iam_role.codebuild_assume_role.arn
+  build_timeout = var.build_timeout
+
+  artifacts {
+    type = "NO_ARTIFACTS"
+  }
+
+  environment {
+    compute_type    = var.build_compute_type
+    image           = var.build_image
+    type            = "LINUX_CONTAINER"
+    privileged_mode = var.build_privileged_override
+
+    environment_variable {
+      name  = "TF_COMMAND"
+      value = "apply"
+      type  = "PLAINTEXT"
+    } 
+    
+    environment_variable {
+      name  = "AWS_ACCESS_KEY_ID"
+      value = var.aws_access_key_id  # aws_iam_access_key.ci_cd_access_key.id # Access Key da Conta B
+    }
+
+    environment_variable {
+      name  = "AWS_SECRET_ACCESS_KEY"
+      value = var.aws_secret_access_key # aws_iam_access_key.ci_cd_access_key.secret # Secret Key da Conta B
+    }
+
+  }
+
+  source {
+    type            = "GITHUB"
+    location        = "https://github.com/${var.vcs_repo.identifier}.git"
+    git_clone_depth = 1
+
+    buildspec = "buildspec-prd.yaml"
+
+    git_submodules_config {
+      fetch_submodules = true
+    }
+  }
+
+  tags = var.common_tags
+}
+
+
+
 
 
 # CodePipeline resources
@@ -266,7 +322,7 @@ resource "aws_codepipeline" "codepipeline" {
       version          = "1"
 
       configuration = {
-        ProjectName = aws_codebuild_project.build_project.name
+        ProjectName = aws_codebuild_project.build_project_prod.name
       }
     }
   }
