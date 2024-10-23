@@ -7,7 +7,7 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "${var.organization_name}-terraform-state"
+    bucket = "sancho-terraform-state"
     key    = "state/aws/cicd-github/terraform.tfstate"
     region = "us-east-1"
   }
