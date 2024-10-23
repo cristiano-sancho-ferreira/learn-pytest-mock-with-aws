@@ -62,4 +62,4 @@ terraform plan -var-file="./_variables/prd.tfvars"
 terraform destroy -auto-approve -var-file="./_variables/prd.tfvars"
 
 ## links:
-https://docs.pytest.org/en/stable/ 
+https://docs.pytest.org/en/stable/  
