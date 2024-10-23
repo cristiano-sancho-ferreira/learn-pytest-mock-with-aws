@@ -11,11 +11,12 @@ phases:
 
   pre_build:
     commands:
-      - python create_s3_bucket.py $ORG-$ACCOUNT-terraform-state
+      - export ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+      - python create_s3_bucket.py $ORG-$ACCOUNT_ID-terraform-state
       - aws s3 ls
       - cd infra
-      - echo "Hello ${ORG}-${ACCOUNT}-terraform-state"
-      - terraform init -migrate-state -backend-config="bucket=${ORG}-${ACCOUNT}-terraform-state" -backend-config="key=state/aws/sdlf/generation-json/terraform.tfstate" -backend-config="region=us-east-1"
+      - echo "Hello ${ORG}-${ACCOUNT_ID}-terraform-state"
+      - terraform init -migrate-state -backend-config="bucket=${ORG}-${ACCOUNT_ID}-terraform-state" -backend-config="key=state/aws/sdlf/generation-json/terraform.tfstate" -backend-config="region=us-east-1"
   build:
     commands:
       - "pwd"
