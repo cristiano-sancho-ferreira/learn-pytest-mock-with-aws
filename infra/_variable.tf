@@ -17,3 +17,7 @@ variable "lambda_runtime" {
 variable "application" {
   type = string
 }
+
+variable "organization_name" {
+  type = string
+}
