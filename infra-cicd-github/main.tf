@@ -105,6 +105,11 @@ resource "aws_codebuild_project" "build_project_prod" {
       name  = "AWS_SECRET_ACCESS_KEY"
       value = var.aws_secret_access_key # aws_iam_access_key.ci_cd_access_key.secret # Secret Key da Conta B
     }
+    
+    environment_variable {
+      name  = "ORG"
+      value = var.organization_name  # aws_iam_access_key.ci_cd_access_key.id # Access Key da Conta B
+    }
 
   }
 
