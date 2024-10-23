@@ -107,17 +107,17 @@ resource "aws_codebuild_project" "build_project_prod" {
     } 
     
     environment_variable {
-      name  = "AWS_ACCESS_KEY_ID"
       # aws_iam_access_key.ci_cd_access_key.id # Access Key da Conta B
-      #value = "secrets-manager:${aws_secretsmanager_secret.ci_cd_credentials.arn}:access_key" 
-      value = var.aws_access_key_id
+      name  = "AWS_ACCESS_KEY_ID"
+      value = "secrets-manager:${aws_secretsmanager_secret.ci_cd_credentials.arn}:access_key" 
+      #value = var.aws_access_key_id
     }
 
     environment_variable {
+      # aws_iam_access_key.ci_cd_access_key.secret # Secret Key da Conta B
       name  = "AWS_SECRET_ACCESS_KEY"
       value = "secrets-manager:${aws_secretsmanager_secret.ci_cd_credentials.arn}:secret_key"
       #value = var.aws_secret_access_key
-      # aws_iam_access_key.ci_cd_access_key.secret # Secret Key da Conta B
     }
     
     environment_variable {
