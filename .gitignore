@@ -3,5 +3,6 @@
 env*
 app/tests/.*
 infra/.*
+infra-cicd-github/.*
 
 
