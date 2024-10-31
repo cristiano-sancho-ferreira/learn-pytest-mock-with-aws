@@ -23,6 +23,7 @@ variable "environment" {
 variable "application_name" {
   description = "Name of the application"
   type        = string
+  default     = "sdlf"
 }
 
 
@@ -30,12 +31,6 @@ variable "repo_default_branch" {
   description = "Name of the branch repository"
   type        = string
   default     = "main"
-}
-
-
-variable "package_buildspec" {
-  description = "The buildspec to be used for the Package stage (default: buildspec.yml)"
-  type        = string
 }
 
 
@@ -61,6 +56,11 @@ variable "build_image" {
   type        = string
 }
 
+variable "build_type" {
+  description = "The build type for CodeBuild to use (default: LINUX_CONTAINER)"
+  type        = string
+}
+
 variable "force_artifact_destroy" {
   description = "Force the removal of the artifact S3 bucket on destroy (default: false)."
   default     = "true"
@@ -75,11 +75,39 @@ variable "vcs_repo" {
   type = object({ identifier = string, branch = string })
 }
 
-
-variable "aws_access_key_id" {
-  type        = string
+variable "terraform_action" {
+  type = string
 }
 
-variable "aws_secret_access_key" {
-  type        = string
+variable "account1_access_key_id" {
+  type    = string
+  default = "NOT_DEFINED"
+}
+
+variable "account1_secret_access_key" {
+  type    = string
+  default = "NOT_DEFINED"
+}
+
+variable "aws_account" {
+  type    = string
+  default = "000000000000"
+}
+
+
+
+variable "account2_access_key_id" {
+  type    = string
+  default = "NOT_DEFINED"
+}
+
+variable "account2_secret_access_key" {
+  type    = string
+  default = "NOT_DEFINED"
+}
+
+variable "target_account_ids" {
+  type        = list(string)
+  description = "Lista de IDs das contas AWS alvo"
+  default     = []
 }

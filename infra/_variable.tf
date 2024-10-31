@@ -21,3 +21,8 @@ variable "application" {
 variable "organization_name" {
   type = string
 }
+
+
+variable "assume_role" {
+  type = string
+}

@@ -7,8 +7,8 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "sancho-terraform-state"
-    key    = "state/aws/cicd-github/terraform.tfstate"
+    bucket = "devops-585008080757-terraform-state"
+    key    = "sdlf/sdlf-cicd-github/terraform.tfstate"
     region = "us-east-1"
   }
 }
