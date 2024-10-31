@@ -41,21 +41,21 @@ resource "aws_codebuild_project" "build_dev_stage1" {
       type  = "PLAINTEXT"
     }
 
-    environment_variable {
-      # Access Key da Conta Production
-      name  = "AWS_ACCESS_KEY_ID"
-      value = aws_ssm_parameter.account1_access_key_id.name
-      #value = var.aws_access_key_id
-      type = "PARAMETER_STORE"
-    }
+    # environment_variable {
+    #   # Access Key da Conta Production
+    #   name  = "AWS_ACCESS_KEY_ID"
+    #   value = aws_ssm_parameter.account1_access_key_id.name
+    #   #value = var.aws_access_key_id
+    #   type = "PARAMETER_STORE"
+    # }
 
-    environment_variable {
-      # Secret Key da Conta Production
-      name  = "AWS_SECRET_ACCESS_KEY"
-      value = aws_ssm_parameter.account1_secret_access_key.name
-      #value = var.aws_secret_access_key
-      type = "PARAMETER_STORE"
-    }
+    # environment_variable {
+    #   # Secret Key da Conta Production
+    #   name  = "AWS_SECRET_ACCESS_KEY"
+    #   value = aws_ssm_parameter.account1_secret_access_key.name
+    #   #value = var.aws_secret_access_key
+    #   type = "PARAMETER_STORE"
+    # }
   }
 
   source {
