@@ -169,24 +169,24 @@ EOF
 }
 
 
-resource "aws_iam_role_policy" "cross_account" {
-  name = join("-", [var.organization_name, var.application_name, "cross-account-policy"])
-  role = aws_iam_role.codebuild_assume_role.id
+# resource "aws_iam_role_policy" "cross_account" {
+#   name = join("-", [var.organization_name, var.application_name, "cross-account-policy"])
+#   role = aws_iam_role.codebuild_assume_role.id
 
-  policy = jsonencode({
-    "Version" : "2012-10-17",
-    "Statement" : [
-      {
-        "Sid" : "AssumeRole01",
-        "Effect" : "Allow",
-        "Action" : "sts:AssumeRole",
-        "Resource" : [
-          for account_id in var.target_account_ids : "arn:aws:iam::${account_id}:role/sdlf-cross-account"
-        ]
-      }
-    ]
-  })
-}
+#   policy = jsonencode({
+#     "Version" : "2012-10-17",
+#     "Statement" : [
+#       {
+#         "Sid" : "AssumeRole01",
+#         "Effect" : "Allow",
+#         "Action" : "sts:AssumeRole",
+#         "Resource" : [
+#           for account_id in var.target_account_ids : "arn:aws:iam::${account_id}:role/sdlf-cross-account"
+#         ]
+#       }
+#     ]
+#   })
+# }
 
 
 
