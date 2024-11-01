@@ -19,8 +19,8 @@ phases:
       - python create_s3_bucket.py $ORG-$ACCOUNT_ID-terraform-state
       - aws s3 ls
       - cd infra
-      - terraform init 
-      #- terraform init -migrate-state -backend-config="bucket=${ORG}-${ACCOUNT_ID}-terraform-state" -backend-config="key=sdlf/generation-json/terraform.tfstate" -backend-config="region=us-east-1"
+      #- terraform init 
+      - terraform init -migrate-state -backend-config="bucket=${ORG}-${ACCOUNT_ID}-terraform-state" -backend-config="key=sdlf/generation-json/terraform.tfstate" -backend-config="region=us-east-1"
   build:
     commands:
       - "pwd"

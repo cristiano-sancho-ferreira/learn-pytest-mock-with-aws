@@ -18,7 +18,7 @@ terraform_action = "apply" # apply or destroy
 
 target_account_ids = ["401932890892", "381491840841"]
 
-account_assume_role = "arn:aws:iam::381491840841:role/sdlf-cross-account"
+account_assume_role = "arn:aws:iam::401932890892:role/sdlf-cross-account"
 
 
 
