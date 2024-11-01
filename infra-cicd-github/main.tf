@@ -45,6 +45,12 @@ resource "aws_codebuild_project" "build_dev_stage1" {
       name  = "ENV"
       value = var.account_env
       type  = "PLAINTEXT"
+    }    
+    
+    environment_variable {
+      name  = "ACCOUNT_ASSUME_ROLE"
+      value = var.account_assume_role
+      type  = "PLAINTEXT"
     }
 
     environment_variable {
