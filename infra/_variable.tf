@@ -23,6 +23,6 @@ variable "organization_name" {
 }
 
 
-variable "assume_role" {
+variable "account_assume_role" {
   type = string
 }

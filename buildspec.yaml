@@ -8,7 +8,7 @@ phases:
       - "python create_s3_bucket.py ${ORG}-${ACCOUNT_ID}-terraform-state"
       - "aws s3 ls"
       - "wget https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip"
-      - "aws s3 cp terraform_${TF_VERSION}_linux_amd64.zip s3://${ORG}-${ACCOUNT_ID}-terraform-state/sdlf/artictory/dev/terraform_${TF_VERSION}_linux_amd64.zip"
+      - "aws s3 cp terraform_${TF_VERSION}_linux_amd64.zip s3://${ORG}-${ACCOUNT_ID}-terraform-state/sdlf/artifactory/terraform_${TF_VERSION}_linux_amd64.zip"
       - "unzip terraform_${TF_VERSION}_linux_amd64.zip"
       - "mv terraform /usr/local/bin/"
       - "pwd"
@@ -20,15 +20,12 @@ phases:
       #- echo Chave Secreta de acesso- $AWS_SECRET_ACCESS_KEY
       #- aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
       - cd infra
-      #- terraform init 
-      - terraform init -migrate-state -backend-config="bucket=${ORG}-${ACCOUNT_ID}-terraform-state" -backend-config="key=sdlf/generation-json/terraform.tfstate" -backend-config="region=us-east-1"
+      - terraform init -migrate-state -backend-config="bucket=${ORG}-${ACCOUNT_ID}-terraform-state" -backend-config="key=sdlf/${ENV}/generation-json/terraform.tfstate" -backend-config="region=us-east-1"
   build:
     commands:
       - "pwd"
       - terraform fmt --recursive
-      #- terraform plan -var-file="./_variables/prd.tfvars"
-      - terraform destroy -auto-approve -var-file="./_variables/prd.tfvars" -var="assume_role=${ASSUME_ROLE}"
-      #- terraform destroy -auto-approve -var-file="./_variables/prd.tfvars"
+      - terraform $TF_COMMAND -auto-approve -var-file="./_variables/${ENV}.tfvars" -var="account_assume_role=${ACCOUNT_ASSUME_ROLE} -var="env=${ENV}"
       
   post_build:
     commands:

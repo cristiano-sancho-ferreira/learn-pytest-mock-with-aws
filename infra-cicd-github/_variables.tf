@@ -119,3 +119,7 @@ variable "account_assume_role" {
 variable "terraform_version" {
   type    = string
 }
+
+variable "account_env" {
+  type    = string
+}

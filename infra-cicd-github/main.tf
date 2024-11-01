@@ -40,10 +40,10 @@ resource "aws_codebuild_project" "build_dev_stage1" {
       value = var.organization_name
       type  = "PLAINTEXT"
     }
-
+    
     environment_variable {
-      name  = "ASSUME_ROLE"
-      value = var.account_assume_role
+      name  = "ENV"
+      value = var.account_env
       type  = "PLAINTEXT"
     }
 
