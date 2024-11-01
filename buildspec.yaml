@@ -4,8 +4,12 @@ phases:
   install:
     commands:
       - "apt install unzip -y"
-      - "wget https://releases.hashicorp.com/terraform/1.9.2/terraform_1.9.2_linux_amd64.zip"
-      - "unzip terraform_1.9.2_linux_amd64.zip"
+      - export ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+      - "python create_s3_bucket.py ${ORG}-${ACCOUNT_ID}-terraform-state"
+      - "aws s3 ls"
+      - "wget https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip"
+      - "aws s3 cp terraform_${TF_VERSION}_linux_amd64.zip s3://${ORG}-${ACCOUNT_ID}-terraform-state/sdlf/artictory/dev/terraform_${TF_VERSION}_linux_amd64.zip"
+      - "unzip terraform_${TF_VERSION}_linux_amd64.zip"
       - "mv terraform /usr/local/bin/"
       - "pwd"
 
@@ -15,9 +19,6 @@ phases:
       #- aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
       #- echo Chave Secreta de acesso- $AWS_SECRET_ACCESS_KEY
       #- aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-      - export ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
-      - python create_s3_bucket.py $ORG-$ACCOUNT_ID-terraform-state
-      - aws s3 ls
       - cd infra
       #- terraform init 
       - terraform init -migrate-state -backend-config="bucket=${ORG}-${ACCOUNT_ID}-terraform-state" -backend-config="key=sdlf/generation-json/terraform.tfstate" -backend-config="region=us-east-1"

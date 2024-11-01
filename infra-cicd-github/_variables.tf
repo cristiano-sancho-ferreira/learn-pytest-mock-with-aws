@@ -115,3 +115,7 @@ variable "target_account_ids" {
 variable "account_assume_role" {
   type    = string
 }
+
+variable "terraform_version" {
+  type    = string
+}

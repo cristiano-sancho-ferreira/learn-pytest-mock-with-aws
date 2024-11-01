@@ -57,6 +57,7 @@ python -m pytest -v --cov
 ![alt text](image-1.png)
 
 ## COMANDOS
+set AWS_PROFILE=devops
 terraform apply -auto-approve -var-file="./_variables/prd.tfvars"
 terraform plan -var-file="./_variables/prd.tfvars"
 terraform destroy -auto-approve -var-file="./_variables/prd.tfvars"

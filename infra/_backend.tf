@@ -10,9 +10,9 @@ terraform {
   
    backend "s3" {
     #O backend será sobrescrito com o comando terraform init -backend-config
-    bucket = "devops-585008080757-terraform-state"
-    # bucket = "${var.organization_name}-${var.number_account_id}-terraform-state"
-    key    = "sdlf/generation-json/terraform.tfstate"
-    region = "us-east-1"
+    # bucket = "devops-585008080757-terraform-state"
+    # # bucket = "${var.organization_name}-${var.number_account_id}-terraform-state"
+    # key    = "sdlf/generation-json/terraform.tfstate"
+    # region = "us-east-1"
   }
 }
