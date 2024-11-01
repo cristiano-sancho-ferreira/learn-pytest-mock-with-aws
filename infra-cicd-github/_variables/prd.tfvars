@@ -14,7 +14,7 @@ vcs_repo = {
   branch     = "main"
   identifier = "cristiano-sancho-ferreira/learn-pytest-mock-with-aws"
 }
-terraform_action = "apply" # apply or destroy
+terraform_action = "destroy" # apply or destroy
 terraform_version = "1.9.2"
 
 target_account_ids = ["401932890892", "381491840841"]
