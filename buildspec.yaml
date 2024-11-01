@@ -25,7 +25,7 @@ phases:
     commands:
       - "pwd"
       - terraform fmt --recursive
-      - terraform $TF_COMMAND -auto-approve -var-file="./_variables/${ENV}.tfvars" -var="account_assume_role=${ACCOUNT_ASSUME_ROLE}" -var="env=${ENV}"
+      - terraform $TF_COMMAND -auto-approve -var-file="./_variables/${ENV}.tfvars" -var="account_assume_role=${ACCOUNT_ASSUME_ROLE}" -var="environment=${ENV}"
       
   post_build:
     commands:
