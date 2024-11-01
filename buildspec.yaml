@@ -26,7 +26,7 @@ phases:
       - "pwd"
       - terraform fmt --recursive
       #- terraform plan -var-file="./_variables/prd.tfvars"
-      - terraform $TF_COMMAND -auto-approve -var-file="./_variables/prd.tfvars -var="assume_role=${ASSUME_ROLE}"
+      - terraform $TF_COMMAND -auto-approve -var-file="./_variables/prd.tfvars"
       #- terraform destroy -auto-approve -var-file="./_variables/prd.tfvars"
       
   post_build:

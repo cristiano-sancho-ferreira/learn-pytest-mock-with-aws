@@ -23,6 +23,6 @@ variable "organization_name" {
 }
 
 
-variable "assume_role" {
-  type = string
-}
+# variable "assume_role" {
+#   type = string
+# }
