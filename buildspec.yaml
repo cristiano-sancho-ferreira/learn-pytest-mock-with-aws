@@ -26,7 +26,7 @@ phases:
       - "pwd"
       - terraform fmt --recursive
       #- terraform plan -var-file="./_variables/prd.tfvars"
-      - terraform $TF_COMMAND -auto-approve -var-file="./_variables/prd.tfvars"
+      - terraform $TF_COMMAND -auto-approve -var-file="./_variables/prd.tfvars -var="assume_role=arn:aws:iam::381491840841:role/sdlf-cross-account"
       #- terraform destroy -auto-approve -var-file="./_variables/prd.tfvars"
       
   post_build:
