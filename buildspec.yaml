@@ -9,14 +9,14 @@ phases:
       - "aws s3 ls"
       # Verifica se o arquivo do Terraform já está no S3
       - |
-        if aws s3 ls s3://${ORG}-${ACCOUNT_ID}-terraform-state/sdlf/artifactory/terraform_${TF_VERSION}_linux_amd64.zip ; then
+        if aws s3 ls s3://${ORG}-${ACCOUNT_ID}-terraform-state/artifactory/terraform_${TF_VERSION}_linux_amd64.zip ; then
           echo "Terraform already exists in S3, downloading..."
-          aws s3 cp s3://${ORG}-${ACCOUNT_ID}-terraform-state/sdlf/artifactory/terraform_${TF_VERSION}_linux_amd64.zip .
+          aws s3 cp s3://${ORG}-${ACCOUNT_ID}-terraform-state/artifactory/terraform_${TF_VERSION}_linux_amd64.zip .
         else
           echo "Terraform not found in S3, downloading from the internet..."
           wget https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip
           # Upload para o S3
-          aws s3 cp terraform_${TF_VERSION}_linux_amd64.zip s3://${ORG}-${ACCOUNT_ID}-terraform-state/sdlf/artifactory/terraform_${TF_VERSION}_linux_amd64.zip
+          aws s3 cp terraform_${TF_VERSION}_linux_amd64.zip s3://${ORG}-${ACCOUNT_ID}-terraform-state/artifactory/terraform_${TF_VERSION}_linux_amd64.zip
         fi
       #- "wget https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip"
       #- "aws s3 cp terraform_${TF_VERSION}_linux_amd64.zip s3://${ORG}-${ACCOUNT_ID}-terraform-state/sdlf/artifactory/terraform_${TF_VERSION}_linux_amd64.zip"
