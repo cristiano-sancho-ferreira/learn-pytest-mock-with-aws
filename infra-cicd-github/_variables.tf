@@ -111,3 +111,7 @@ variable "target_account_ids" {
   description = "Lista de IDs das contas AWS alvo"
   default     = []
 }
+
+variable "account_assume_role" {
+  type    = string
+}

@@ -37,7 +37,7 @@ resource "aws_codebuild_project" "build_dev_stage1" {
 
     environment_variable {
       name  = "ASSUME_ROLE"
-      value = "arn:aws:iam::381491840841:role/sdlf-cross-account"
+      value = var.account_assume_role
       type  = "PLAINTEXT"
     }
 
