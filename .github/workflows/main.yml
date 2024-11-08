@@ -13,7 +13,7 @@ jobs:
   runs-on: ubuntu-latest
   environment:
     name: dev
-    url: 'www.4insights.net'
+    url: '4insights.net/console'
   needs: build
   steps:
     - name: Run a one0line script
@@ -23,7 +23,7 @@ jobs:
   runs-on: ubuntu-latest
   environment:
     name: prd
-    url: 'www.4insights.net'
+    url: '4insights.net'
   needs: deploy-dev
   steps:
     - name: Run a one0line script
